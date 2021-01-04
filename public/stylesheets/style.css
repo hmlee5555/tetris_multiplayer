@@ -1,0 +1,23 @@
+body {
+  background: #202028;
+  color: #fff;
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+
+#container {
+  display: flex;
+  flex-direction: row;
+}
+#nextsave {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+#game {
+   display: flex;
+   flex-direction: row;
+  padding: 5px;
+ }
+
