@@ -101,10 +101,14 @@ function createPiece(type){
 function draw(){
     context.fillStyle = '#000';
     context.fillRect(0,0, canvas.width, canvas.height);
-    drawMatrix(context, arena, {x:0 , y:0})
+    drawMatrix(context, arena, {x:0 , y:0});
+
+    // draw ghost (ghost를 먼저그리고 player를 나중에 그려야 겹쳤을 떄 player가 위에 나타남)
+    drawMatrix(context, ghostMatrix(player.matrix), {x:player.pos.x, y:player.pos.y+ghostOffset()});
+
+    // draw player
     drawMatrix(context, player.matrix, player.pos);
-    //draw ghost
-    drawMatrix(context, player.matrix, {x:player.pos.x, y:player.pos.y+ghostOffset()});
+
 
     //draw next
     nextcontext.fillStyle = '#000';
@@ -133,6 +137,37 @@ function drawMatrix(context, matrix, offset) {
             }
         });
     });
+}
+// ghost 출력할 y offset 계산
+function ghostOffset(){
+    let offset = 0;
+    // collide할때까지 offset 증가시키고 다시 1 뺌
+    while(!collide(arena, player)){
+        player.pos.y++;
+        offset++;
+    }
+    for (let i = 0; i < offset; ++i){
+        player.pos.y--;
+    }
+    return offset-1;
+}
+// player와 동일 모양, 다른 색상(값)의 matrix 생성
+function ghostMatrix(matrix){
+    let ghostmatrix=[];
+    let newrow;
+    // matrix에서 0 아닌 값들만 8로 바꿈 (colors 배열에서 grey색)
+    matrix.forEach(row => {
+        newrow = [];
+        row.forEach(value => {
+            if (value !== 0) {
+                newrow.push(8); // grey색은 colors에서 index 8
+            }else{
+                newrow.push(0);
+            }
+        });
+        ghostmatrix.push(newrow);
+    });
+    return ghostmatrix;
 }
 
 // arena table에서 현재 player가 위치한 곳 모양 위치들 1로 바꿈
@@ -168,17 +203,6 @@ function playerSlam(){
     arenaSweep();
     updateScore();
     dropCounter = 0;
-}
-function ghostOffset(){
-    let offset = 0;
-    while(!collide(arena, player)){
-        player.pos.y++;
-        offset++;
-    }
-    for (let i = 0; i < offset; ++i){
-        player.pos.y--;
-    }
-    return offset-1;
 }
 
 // 왼쪽/오른쪽 이동
@@ -285,7 +309,7 @@ function updateScore() {
 }
 
 const pieces = 'ILJOTSZ'; // 다음 piece 접근할 수 있도록 전역변수로.
-const colors = [null,'red','blue','violet','green','purple','orange','pink'];
+const colors = [null,'red','blue','violet','green','purple','orange','pink','grey'];  // 'grey'는 ghost전용 색
 const arena = createMatrix(12,20);
 const player = {
     pos: {x:0, y:0},
