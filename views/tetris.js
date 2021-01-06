@@ -217,15 +217,26 @@ function playerRotate(dir) {
     rotate(player.matrix, dir); // 회전
     //회전했을때 collide대비
     const pos = player.pos.x;  // 원래 x위치(fail했을때 원래대로 돌려놓기 위해)
+    const y_pos = player.pos.y;
     let offset = 1;            // offset: 오른쪽으로 1칸, 왼쪽으로 2칸, 오른쪽으로 3칸 순으로 while loop으로 이동시키면서 collide안할때까지
+    let y_offset = 1;          // y offset: 하나씩 증가시키며 아래칸으로 내림
+
     while (collide(arena, player)){
         player.pos.x += offset;
         offset = -(offset + (offset > 0 ? 1 : -1)); //offset이 음수면 -1, 양수면 +1 하고 부호전환
         // failure catch: 내 모양보다 멀리이동하면 에러로 간주 - 원래대로 복원
         if (offset > player.matrix[0].length){
-            rotate(player.matrix, -dir);
-            player.pos.x = pos;
-            return;
+            // 가로로 이동했을때는 효과없으면? -> 한칸 아래로 내려서 다시 시도
+            player.pos.x = pos; // x offset, x위치 초기화
+            offset = 1;
+            player.pos.y++;     // y offset 증가
+            y_offset++;
+            if (y_offset > player.matrix.length){ // 기준 어떻게 잡아야할까???
+                rotate(player.matrix, -dir);
+                player.pos.x = pos;
+                player.pos.y = y_pos; // x,y 둘다 초기화
+                return;
+            }
         }
     }
 }
