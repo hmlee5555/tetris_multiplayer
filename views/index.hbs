@@ -1,17 +1,38 @@
-<h1>{{ title }}</h1>
-<div id="score">0</div>
-<div id="container">
-    <div id="nextsave">
-        next
-        <canvas id="next" width="80" height="80" style="border: solid .2em #fff; height: 16vh;"></canvas>
-        saved
-        <canvas id="saved" width="80" height="80" style="border: solid .2em #fff; height: 16vh;"></canvas>
+
+<div class="player">
+    <div class="score">0</div>
+    <div class="container">
+        <div class="nextsave">
+            next
+            <canvas class="next" width="80" height="80" style="border: solid .2em #fff; height: 16vh;"></canvas>
+            saved
+            <canvas class="saved" width="80" height="80" style="border: solid .2em #fff; height: 16vh;"></canvas>
+        </div>
+        <div class="game">
+            <canvas class="tetris" width="240" height="400" style="border: solid .2em #fff; height: 80vh;"></canvas>
+        </div>
     </div>
-    <div id="game">
-        <canvas id="tetris" width="240" height="400" style="border: solid .2em #fff; height: 80vh;"></canvas>
+</div>
+<div class="player">
+    <div class="score">0</div>
+    <div class="container">
+        <div class="nextsave">
+            next
+            <canvas class="next" width="80" height="80" style="border: solid .2em #fff; height: 16vh;"></canvas>
+            saved
+            <canvas class="saved" width="80" height="80" style="border: solid .2em #fff; height: 16vh;"></canvas>
+        </div>
+        <div class="game">
+            <canvas class="tetris" width="240" height="400" style="border: solid .2em #fff; height: 80vh;"></canvas>
+        </div>
     </div>
 </div>
 
 
+<script src="/arena.js"></script>
+<script src="/player.js"></script>
 <script src="/tetris.js"></script>
+<script src="/main.js"></script>
+
+
 
