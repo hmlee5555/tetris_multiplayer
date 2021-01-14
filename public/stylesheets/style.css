@@ -19,11 +19,6 @@ body {
   flex-direction: column;
   padding: 5px;
 }
-.game {
-  display: flex;
-  flex-direction: row;
-  padding: 5px;
-}
 .timebox,
 .speedbox {
   border: solid 0.2em #fff;
@@ -40,4 +35,10 @@ body {
 }
 .score {
   margin: auto;
+}
+
+.game {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
 }
