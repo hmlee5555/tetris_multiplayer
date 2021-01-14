@@ -44,6 +44,10 @@ class Tetris{
         // draw player
         this.drawMatrix(this.context, this.player.matrix, this.player.pos);
 
+        // draw time
+        this.updateTime();
+        // draw speed
+        this.updateSpeed();
 
         //draw next
         this.nextcontext.fillStyle = '#000';
@@ -108,6 +112,13 @@ class Tetris{
 
     updateScore(score) {
         this.element.querySelector('.score').innerText = score;
+    }
+    updateTime() {
+        this.element.querySelector(".time").innerText = this.player.time;
+    }
+    
+    updateSpeed() {
+        this.element.querySelector(".speed").innerText = this.player.speed;
     }
 
 }

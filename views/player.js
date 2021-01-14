@@ -15,9 +15,22 @@ class Player{
         this.savedPiece = -1;
         this.savesLeft = 1; // save 기회 수 (1이면 save된거랑 교체할 기회 한번)
         this.score = 0;
+        // time, speed
+        this.time = 0;
+        this.speed = 0;
+        // timer
+        this.timer();
 
         this.reset();
     }
+
+    // 게임 시간 타이머
+    timer() {
+        setInterval(() => {
+          this.time += 1;
+        }, 1000);
+    }
+
     // 왼쪽/오른쪽 이동
     move(dir) {
         this.pos.x += dir;
@@ -39,6 +52,10 @@ class Player{
             this.arena.clear();
             this.score = 0;
             this.tetris.updateScore(this.score);
+            // time, speed 초기화
+            this.time = 0;
+            this.speed = 0;
+            this.dropInterval = this.DROP_SLOW;
         }
     }
 
@@ -157,6 +174,14 @@ class Player{
         this.dropCounter += deltaTime;
         if (this.dropCounter > this.dropInterval) {
             this.drop();
+            // time 조정
+            if (this.time % 10 == 0) {
+                this.dropInterval--;
+                if (this.time % 30 == 0) {
+                    this.speed++;
+                    this.dropInterval -= 7;
+                }
+            }
         }
     }
 }
