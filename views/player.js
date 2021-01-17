@@ -27,7 +27,20 @@ class Player{
     // 게임 시간 타이머
     timer() {
         setInterval(() => {
-          this.time += 1;
+            this.time += 1;
+            // time 조정
+            if(this.dropInterval > 50){
+                if (this.time % 10 === 0) {
+                    this.dropInterval -= 5;
+                    if (this.time % 20 === 0) {
+                        this.speed++;
+                        this.dropInterval -= 40;
+                    }
+                }
+            }
+            else{
+                this.speed = "MAX";
+            }
         }, 1000);
     }
 
@@ -174,14 +187,6 @@ class Player{
         this.dropCounter += deltaTime;
         if (this.dropCounter > this.dropInterval) {
             this.drop();
-            // time 조정
-            if (this.time % 10 == 0) {
-                this.dropInterval--;
-                if (this.time % 30 == 0) {
-                    this.speed++;
-                    this.dropInterval -= 7;
-                }
-            }
         }
     }
 }
