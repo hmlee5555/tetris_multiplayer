@@ -6,11 +6,14 @@ class Arena{
             matrix.push(new Array(w).fill(0));
         }
         this.matrix = matrix;
+
+        this.events = new Events();
     }
 
     // arena 초기화
     clear(){
         this.matrix.forEach(row => row.fill(0));
+        this.events.emit('matrix', this.matrix);
     }
 
     // arena의 0이 아닌 부분과 겹치면 return true
@@ -37,6 +40,7 @@ class Arena{
                 }
             });
         });
+        this.events.emit('matrix', this.matrix);
     }
 
     // 줄 꽊찼을때 제거
@@ -56,6 +60,7 @@ class Arena{
             score += rowCount * 10;
             rowCount *= 2;
         }
+        this.events.emit('matrix', this.matrix);
         return score;
     }
 }

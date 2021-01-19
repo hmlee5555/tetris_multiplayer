@@ -16,19 +16,20 @@ class Tetris{
         this.arena = new Arena(12,20);
         this.player = new Player(this);
 
+
+
         this.colors = [null,'red','blue','violet','green','purple','orange','pink','grey'];  // 'grey'는 ghost전용 색
 
         let lastTime = 0;
-        const update = (time = 0) => {
+        this._update = (time = 0) => {
             const deltaTime = time - lastTime;
             lastTime = time;
 
             this.player.update(deltaTime);
 
             this.draw();
-            requestAnimationFrame(update);
+            requestAnimationFrame(this._update);
         }
-        update();
         this.updateScore(0);
     }
 
@@ -53,14 +54,14 @@ class Tetris{
         this.nextcontext.fillStyle = '#000';
         this.nextcontext.fillRect(0,0, this.nextcanvas.width, this.nextcanvas.height);
         // 다음 piece 그림. createPiece()로 그려서 rotate해도 변하지 않도록함.
-        this.drawMatrix(this.nextcontext, createPiece(pieces[this.player.nextPiece]), {x:0 , y:0});
+        this.drawMatrix(this.nextcontext, this.player.createPiece(pieces[this.player.nextPiece]), {x:0 , y:0});
 
         //draw next
         this.savedcontext.fillStyle = '#000';
         this.savedcontext.fillRect(0,0, this.savedcanvas.width, this.savedcanvas.height);
         // 저장 piece 그림.
         if(this.player.savedPiece !== -1){
-            this.drawMatrix(this.savedcontext, createPiece(pieces[this.player.savedPiece]), {x:0 , y:0});
+            this.drawMatrix(this.savedcontext, this.player.createPiece(pieces[this.player.savedPiece]), {x:0 , y:0});
         }
     }
 
@@ -116,9 +117,43 @@ class Tetris{
     updateTime() {
         this.element.querySelector(".time").innerText = this.player.time;
     }
-    
     updateSpeed() {
         this.element.querySelector(".speed").innerText = this.player.speed;
     }
+
+    // tetris 실행 (업뎃시작)
+    run(){
+        this._update();
+    }
+
+    // 현재 상태를 한번에 보여주는 object 반환
+    serialize(){
+        return {
+            arena: {
+                matrix: this.arena.matrix,
+            },
+            player: {
+                matrix: this.player.matrix,
+                pos: this.player.pos,
+                score: this.player.score,
+                // next, saved도 보냄
+                nextPiece: this.player.nextPiece,
+                savedPiece: this.player.savedPiece,
+            },
+        };
+    }
+    unserialize(state){
+        /**
+         * 왜 = state.arena 안쓰고 = Object.assign(state.arena) 쓰는거지??
+         * Object.assign(state.arena)만 하면 arena/player내 함수들(arena.collide, player.createPiece 등)이 undefined됐다는 에러 발생.
+         * => Object.assign(this.arena, state.arena)로 바꿔서 병합하도록 했더니 문제 해결.
+         */
+        this.arena = Object.assign(this.arena, state.arena);
+        this.player = Object.assign(this.player, state.player);
+        this.updateScore(this.player.score);
+        this.draw();
+    }
+
+
 
 }

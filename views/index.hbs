@@ -1,56 +1,38 @@
-<div class="player">
-    <div class="container">
-        <div class="nextsave">
-            next
-            <canvas class="next" width="80" height="80" style="border: solid .2em #fff; height: 16vh;"></canvas>
-            saved
-            <canvas class="saved" width="80" height="80" style="border: solid .2em #fff; height: 16vh;"></canvas>
-            <div class="speedbox">
-                speed
-                <div class="speed"></div>
+<!--template으로 정의하므로 import하기 전까지는 browser에 의해 접근 불가능 -->
+<template id="player-template">
+    <div class="player">
+        <div class="container">
+            <div class="nextsave">
+                next
+                <canvas class="next" width="80" height="80" style="border: solid .2em #fff; height: 16vh;"></canvas>
+                saved
+                <canvas class="saved" width="80" height="80" style="border: solid .2em #fff; height: 16vh;"></canvas>
+                <div class="speedbox">
+                    speed
+                    <div class="speed"></div>
+                </div>
+                <div class="timebox">
+                    time
+                    <div class="time"></div>
+                </div>
+                <div class="scorebox">
+                    score
+                    <div class="score">0</div>
+                </div>
             </div>
-            <div class="timebox">
-                time
-                <div class="time"></div>
+            <div class="game">
+                <canvas class="tetris" width="240" height="400"></canvas>
             </div>
-            <div class="scorebox">
-                score
-                <div class="score">0</div>
-            </div>
-        </div>
-        <div class="game">
-            <canvas class="tetris" width="240" height="400" style="border: solid .2em #fff; height: 80vh;"></canvas>
         </div>
     </div>
-</div>
-<div class="player">
-    <div class="container">
-        <div class="nextsave">
-            next
-            <canvas class="next" width="80" height="80" style="border: solid .2em #fff; height: 16vh;"></canvas>
-            saved
-            <canvas class="saved" width="80" height="80" style="border: solid .2em #fff; height: 16vh;"></canvas>
-            <div class="speedbox">
-                speed
-                <div class="speed"></div>
-            </div>
-            <div class="timebox">
-                time
-                <div class="time"></div>
-            </div>
-            <div class="scorebox">
-                score
-                <div class="score">0</div>
-            </div>
-        </div>
-        <div class="game">
-            <canvas class="tetris" width="240" height="400" style="border: solid .2em #fff; height: 80vh;"></canvas>
-        </div>
-    </div>
-</div>
+</template>
 
 
-<script src="/arena.js"></script>
-<script src="/player.js"></script>
-<script src="/tetris.js"></script>
-<script src="/main.js"></script>
+
+<script src="/client/tetris-manager.js"></script>
+<script src="/client/connection-manager.js"></script>
+<script src="/client/arena.js"></script>
+<script src="/client/events.js"></script>
+<script src="/client/player.js"></script>
+<script src="/client/tetris.js"></script>
+<script src="/client/main.js"></script>

@@ -10,6 +10,15 @@ body {
 .player {
   flex: 1 1 auto;
 }
+.player.local canvas {
+  border-color: #fff;
+}
+
+canvas {
+  height: 80vh;
+  border: solid 0.2em #707070;
+}
+
 .container {
   display: flex;
   flex-direction: row;

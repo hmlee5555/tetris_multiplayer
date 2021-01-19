@@ -3,6 +3,8 @@ class Player{
         this.tetris = tetris;
         this.arena = tetris.arena;
 
+        this.events = new Events();
+
         this.DROP_SLOW = 1000;
         this.DROP_FAST = 100; // 50으로 하니까 너무 짧아서 한번만 눌러도 두칸씩 이동;; 좀 늘림
         this.dropCounter = 0;
@@ -41,6 +43,9 @@ class Player{
             else{
                 this.speed = "MAX";
             }
+            // time와 speed 업뎃 broadcast
+            this.events.emit('time', this.time);
+            this.events.emit('speed', this.speed);
         }, 1000);
     }
 
@@ -49,12 +54,15 @@ class Player{
         this.pos.x += dir;
         if (this.arena.collide(this)){
             this.pos.x -= dir;
+            return; // collide한 경우 emit하지않기 위해
         }
+        this.events.emit('pos', this.pos);
+
     }
 
     // 새로운 모양 generate, 만약 generate하자마자 collide하면 GAME OVER -> reset
     doReset(){
-        this.matrix = createPiece(pieces[this.currentPiece]);
+        this.matrix = this.createPiece(pieces[this.currentPiece]);
         this.pos.y = 0;
         this.pos.x = (this.arena.matrix[0].length / 2 | 0) - (this.matrix[0].length / 2 | 0);
 
@@ -64,12 +72,20 @@ class Player{
             this.nextPiece = pieces.length * Math.random() | 0;
             this.arena.clear();
             this.score = 0;
-            this.tetris.updateScore(this.score);
+            this.events.emit('score', this.score);
             // time, speed 초기화
             this.time = 0;
             this.speed = 0;
             this.dropInterval = this.DROP_SLOW;
         }
+
+        this.events.emit('pos', this.pos);
+        this.events.emit('matrix', this.matrix);
+        // next와 saved, time ,speed도 전달 - 한번에 전달하는 방법 없을까?
+        this.events.emit('nextPiece', this.nextPiece);
+        this.events.emit('savedPiece', this.savedPiece);
+        this.events.emit('time', this.time);
+        this.events.emit('speed', this.speed);
     }
 
 
@@ -114,6 +130,8 @@ class Player{
                 }
             }
         }
+        this.events.emit('matrix', this.matrix);
+
     }
     // rotate하려면 row를 column으로 바꾼 후 양쪽 col을 서로 바꾸면 됨
     // 1 2 3    1 4 7    7 4 1
@@ -136,18 +154,68 @@ class Player{
         }
     }
 
+    // 모양들. 숫자를 달리해서 색깔로 매핑
+    createPiece(type){
+        if (type === 'T') {
+            return [
+                [0,0,0],
+                [1,1,1],
+                [0,1,0],
+            ];
+        }else if (type === 'O'){
+            return [
+                [2,2],
+                [2,2],
+            ];
+        }else if (type === 'L'){
+            return [
+                [0,3,0],
+                [0,3,0],
+                [0,3,3],
+            ];
+        }else if (type === 'J'){
+            return [
+                [0,4,0],
+                [0,4,0],
+                [4,4,0],
+            ];
+        }else if (type === 'I'){
+            return [
+                [0,0,0,0],
+                [5,5,5,5],
+                [0,0,0,0],
+                [0,0,0,0],
+            ];
+        }else if (type === 'S'){
+            return [
+                [0,6,6],
+                [6,6,0],
+                [0,0,0],
+            ];
+        }else if (type === 'Z'){
+            return [
+                [7,7,0],
+                [0,7,7],
+                [0,0,0],
+            ];
+        }
+    }
+
 
     // 아래로 한칸 이동: collide시 undo 하고 0으로 리셋
     drop(){
         this.pos.y++;
+        this.dropCounter = 0;
         if (this.arena.collide(this)) {
             this.pos.y--;
             this.arena.merge(this);
             this.reset();
             this.score += this.arena.sweep();
-            this.tetris.updateScore(this.score);
+            this.tetris.updateScore(this.score);    // 영상에서 실수인듯? 본인 score도 업뎃해줘야함!!
+            this.events.emit('score', this.score);
+            return;
         }
-        this.dropCounter = 0;
+        this.events.emit('pos', this.pos);
     }
 
     slam(){
@@ -159,6 +227,7 @@ class Player{
         this.reset();
         this.score += this.arena.sweep();
         this.tetris.updateScore(this.score);
+        this.events.emit('score', this.score);
         this.dropCounter = 0;
     }
 
