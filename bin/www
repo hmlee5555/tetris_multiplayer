@@ -4,16 +4,16 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('tetris:server');
-var http = require('http');
+var app = require("../app");
+var debug = require("debug")("tetris:server");
+var http = require("http");
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+var port = normalizePort(process.env.PORT || "3000");
+app.set("port", port);
 
 /**
  * Create HTTP server.
@@ -24,51 +24,68 @@ var server = http.createServer(app);
 /**
  * Tetris WebSocket 부분--------------------------------------------------------------------------
  */
-const WebSocket = require('ws').Server;
-const Session = require('./session');
-const Client = require('./client');
+const WebSocket = require("ws").Server;
+const Session = require("./session");
+const Client = require("./client");
 
-const ws = new WebSocket({ server:server }); // 존재하는 서버로 websocketserver도 listen하도록??
+const ws = new WebSocket({server: server}); // 존재하는 서버로 websocketserver도 listen하도록??
 
-const sessions = new Map; // session객체와 sessionID mapping
-
+const sessions = new Map(); // session객체와 sessionID mapping
 
 // 랜덤 세션/client ID 생성
-function createId(len = 6, chars = 'abcdefghjklmnopqrstwxyz0123456789'){
-  let id = '';
-  while (len--){
-    id += chars[Math.random() * chars.length | 0];
+function createId(len = 6, chars = "abcdefghjklmnopqrstwxyz0123456789") {
+  let id = "";
+  while (len--) {
+    id += chars[(Math.random() * chars.length) | 0];
   }
   return id;
 }
 
 // client 생성
-function createClient(conn, id = createId()){
+function createClient(conn, id = createId()) {
   return new Client(conn, id);
 }
 
 // 세션 생성: id 주어지면 그 id로 세션 생성, 안주어지면 createID()로 랜덤 id로 생성
-function createSession(id = createId()){
-  if (sessions.has(id)){
+function createSession(id = createId()) {
+  if (sessions.has(id)) {
     throw new Error(`Session ${id} already exists`);
   }
+
+  // sessions이 비워져 있을때(맨 처음)
+  if (sessions.size === 0) {
+    const session = new Session(id);
+    console.log("Creating Session:", session);
+
+    sessions.set(id, session); // sessions map에 추가
+
+    return session;
+  }
+  // 세션들이 있을 때 세션들을 돌며 client가 하나만 있는 세션 찾기
+  for (let session of sessions.values()) {
+    if (session.clients.size === 1) {
+      return session;
+    }
+  }
+  // 세션들의 client가 다 채워져있을 때 새로운 세션 생성
   const session = new Session(id);
-  console.log('Creating Session:', session);
+  console.log("Creating Session:", session);
 
   sessions.set(id, session); // sessions map에 추가
 
   return session;
 }
-function getSession(id){ // sessions map에서 해당 ID의 세션객체 반환
+function getSession(id) {
+  // sessions map에서 해당 ID의 세션객체 반환
   return sessions.get(id);
 }
 
 // 다른 client들에게 broadcast: client join/leave했을때
-function broadcastSession(session){
+function broadcastSession(session) {
   const clients = [...session.clients]; // 해당 session에 있는 client들 array
   clients.forEach(client => {
     client.send({
-      type: 'session-broadcast',
+      type: "session-broadcast",
       peers: {
         you: client.id,
         clients: clients.map(client => {
@@ -78,43 +95,52 @@ function broadcastSession(session){
           };
         }),
       },
+      session_id: session.id, // 같은 세션 client들의 url 통일을 위해 세션 id 전달
     });
   });
 }
 
-ws.on('connection', conn => { // server.on이 아니라 ws.on임! 주의
-  console.log('Connection established');
+ws.on("connection", conn => {
+  // server.on이 아니라 ws.on임! 주의
+  console.log("Connection established");
   const client = createClient(conn);
 
-  conn.on('message', msg => {
-    console.log('Message received:', msg);
+  conn.on("message", msg => {
+    console.log("Message received:", msg);
     const data = JSON.parse(msg); // 메세지를 JSON형태로 바꿈
 
     // 세션 만들기
-    if(data.type === 'create-session'){
+    if (data.type === "create-session") {
       const session = createSession();
       session.join(client);
 
       client.state = data.state;
-      client.send({ // client에게 세션 아이디 알려줌
-        type: 'session-created',
-        id: session.id,
-      });
 
-    //세션 join하기
-    }else if (data.type === 'join-session'){
+      // 새로운 세션 생성했을 때
+      if (session.clients.size === 1) {
+        client.send({
+          // client에게 세션 아이디 알려줌
+          type: "session-created",
+          id: session.id,
+        });
+      } else {
+        // 있는 세션에 참가했을 때
+        broadcastSession(session); // session의 모든 client에게 변경사항 broadcast
+      }
+
+      //세션 join하기
+    } else if (data.type === "join-session") {
       // ID로 sessions map에서 세션 가져옴: 만약 없다면 그 ID로 세션 생성
       const session = getSession(data.id) || createSession(data.id);
-      session.join(client);   // 그 session에 이 client join시킴
+      session.join(client); // 그 session에 이 client join시킴
 
       client.state = data.state;
       broadcastSession(session); // session의 모든 client에게 변경사항 broadcast
 
-    // state업뎃마다 모든 client에게 broadcast
-    }else if (data.type === 'state-update'){
-
+      // state업뎃마다 모든 client에게 broadcast
+    } else if (data.type === "state-update") {
       // 최신 client state 서버에 저장 -> broadcastSession()할때 최신정보 주기위해
-      const [prop,value] = data.state;
+      const [prop, value] = data.state;
       client.state[data.fragment][prop] = value;
 
       client.broadcast(data);
@@ -122,14 +148,14 @@ ws.on('connection', conn => { // server.on이 아니라 ws.on임! 주의
   });
 
   // connection closed
-  conn.on('close', () => {
-    console.log('Connection closed');
+  conn.on("close", () => {
+    console.log("Connection closed");
     const session = client.session;
     // client 나가기
     if (session) {
       session.leave(client);
       // 세션에 남아있는 사람 없으면 세션 삭제
-      if (session.clients.size === 0){
+      if (session.clients.size === 0) {
         sessions.delete(session.id);
       }
     }
@@ -142,8 +168,8 @@ ws.on('connection', conn => { // server.on이 아니라 ws.on임! 주의
  */
 
 server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+server.on("error", onError);
+server.on("listening", onListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -170,22 +196,20 @@ function normalizePort(val) {
  */
 
 function onError(error) {
-  if (error.syscall !== 'listen') {
+  if (error.syscall !== "listen") {
     throw error;
   }
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  var bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+    case "EACCES":
+      console.error(bind + " requires elevated privileges");
       process.exit(1);
       break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+    case "EADDRINUSE":
+      console.error(bind + " is already in use");
       process.exit(1);
       break;
     default:
@@ -199,8 +223,6 @@ function onError(error) {
 
 function onListening() {
   var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+  debug("Listening on " + bind);
 }
