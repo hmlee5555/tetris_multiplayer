@@ -33,14 +33,31 @@ class Tetris {
       const deltaTime = time - lastTime;
       lastTime = time;
 
+      if(this.player.gameOver === 1){
+        document.querySelector(".modal-gameover").style.display = "flex";
+        document.querySelector(".modal-gameover p").innerText = "You LOSE!";
+      }
       this.player.update(deltaTime);
-
       this.draw();
       this.reqId = requestAnimationFrame(this._update);
     };
     this.updateScore(0);
 
     this.reqId = null; // requestAnimationFrame을 호출하여 반환된 ID
+  }
+
+  // game over가 일어날때 
+  gameIsOver(){
+    document.querySelector(".modal-gameover").style.display = "flex";
+    document.querySelector(".modal-gameover p").innerText = "You Win!";
+  }
+
+  // 플레이어 reset
+  playerReset(){
+    this.player.dropInterval = this.player.DROP_SLOW;
+    this.player.time = 0;
+    this.player.speed = 0;
+    this.player.gameOver = 0;
   }
 
   // 현재 상태 출력: 현재 쌓인 상태(arena)출력하고 내 현재 모양(player)출력함

@@ -17,7 +17,7 @@ class ConnectionManager {
       this.watchEvents();
     });
 
-    // 메세지 받을떄마다 발동
+    // 메세지 받을때마다 발동
     this.conn.addEventListener("message", event => {
       console.log("Received Message", event.data);
       this.receive(event.data);
@@ -59,6 +59,7 @@ class ConnectionManager {
       "savedPiece",
       "time",
       "speed",
+      "gameOver",
     ].forEach(prop => {
       player.events.listen(prop, value => {
         this.send({
@@ -129,6 +130,10 @@ class ConnectionManager {
     tetris[fragment][prop] = value; // fragment는 'arena'나 'player' 둘 중 하나.
     if (prop === "score") {
       tetris.updateScore(value);
+    } else if(prop === "gameOver" && value === 1){
+      // gameOver된 player가 있으면 peer들은 data의 gameover prop을 통해 이를 알 수 있음
+      document.querySelector(".modal-gameover").style.display = "flex";
+      document.querySelector(".modal-gameover p").innerText = "You Win!";
     } else {
       tetris.draw(); // score 이외의 경우는 move, rotate, arena 변화 등이므로 다시 tetris draw.
     }
@@ -143,8 +148,25 @@ class ConnectionManager {
       // broadcast받음 -> peer리스트 업뎃
     } else if (data.type === "session-broadcast") {
       window.location.hash = data.session_id; // 참가한 세션의 id -> URL 끝에 hash와 함께 붙임
-      this.localTetris.run(); // client가 2명 이상이므로 테트리스 실행
-      this.updateManager(data.peers); // msg로 받은 peer list 바탕으로 업데이트
+      
+      // 게임 시작까지 3초 걸린다는 창 띄우기
+      document.querySelector(".modal-wrapper").style.display = "flex";
+      let waitingtime = 2;
+      let timerId = setInterval(()=>{
+        document.querySelector(".modal-wrapper p").innerText = waitingtime;
+        waitingtime--;
+        if(waitingtime === 0){
+          clearInterval(timerId);
+        }
+      }, 1000);
+      setTimeout(() => {
+        document.querySelector(".modal-wrapper").style.display = "none";
+        this.localTetris.playerReset();
+        this.localTetris.arena.clear();
+        this.localTetris.run(); // client가 2명 이상이므로 테트리스 실행
+        this.updateManager(data.peers); // msg로 받은 peer list 바탕으로 업데이트
+      }, 3000);
+
     } else if (data.type === "state-update") {
       this.updatePeer(data.clientId, data.fragment, data.state);
     }
