@@ -1,4 +1,3 @@
-
 class Client{
     constructor(conn,id) {
         this.conn = conn;
@@ -11,7 +10,7 @@ class Client{
     // 세션의 모든 client에세 send함
     broadcast(data){
         if (!this.session) { // 세션 없을 경우 방지
-            throw new Error('Cannot boradcast without session')
+            throw new Error('Cannot broadcast without session')
         }
         data.clientId = this.id; // 누가보냈는지 알기위해
 

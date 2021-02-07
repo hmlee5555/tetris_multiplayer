@@ -23,7 +23,4 @@ class Session{
     }
 }
 
-/**
- * 이렇게 해야 www에서 require()로 이 모듈 쓸 수 있다??
- */
 module.exports = Session;
