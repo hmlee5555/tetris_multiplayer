@@ -85,10 +85,16 @@ canvas {
   font-size: 35px;
   font-weight: bold;
   color: white;
+  margin-bottom: 20px;
+}
+.modal-error {
+  font-size: 16px;
+  color: red;
+  margin-bottom: 10px;
 }
 
 .modal p {
-  font-size: 20px;
+  font-size: 50px;
 }
 
 .form-group {
