@@ -1,5 +1,33 @@
-<div class="indexContainer">
+<div class="modal-wrapper" style="display: none">
+    <div class="overlay"></div>
+    <div class="modal">
+        <div class="modal-title">Login</div>
+        <p></p>
+        <form method="POST">
+            <div class="form-group">
+                <label for="username" style="display: none;"></label>
+                <input class="form-input" type="text" id="username" name="username" placeholder="Username" />
+            </div>
+            <div class="form-group">
+                <label for="password" style="display: none;"></label>
+                <input class="form-input" type="password" id="password" name="password" placeholder="Password" />
+            </div>
+<!--            <div class="form-group">-->
+<!--                <div class="custom-control custom-checkbox">-->
+<!--                    <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" />-->
+<!--                    <label class="custom-control-label" for="rememberPasswordCheck">Remember password</label>-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="form-group">
+<!--                <a class="small" href="/password">Forgot Password?</a>-->
+                <button class="btn btn-primary" type="submit">Login</button>
+                <button class="btn btn-secondary" type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
 
+<div class="indexContainer">
     <div class="logoContainer">
         <img src="/public/images/logo.png" alt="Tetris Battle Logo" width="561px" height="235px">
 
@@ -10,11 +38,11 @@
     </div>
 
     <div class="menuContainer">
-        <div class="menu" id="howto">
-            <svg xmlns="http://www.w3.org/2000/svg" width="35.301" height="52.951" viewBox="0 0 35.301 52.951">
-                <path id="Icon_ionic-md-help" data-name="Icon ionic-md-help" d="M31.2,57.451H22.1V48.488h9.1Zm-.138-13.513H22.238c0-13.927,13.238-13.114,13.238-21.925A8.781,8.781,0,0,0,26.65,13.27a9.008,9.008,0,0,0-8.825,8.88H9a17.651,17.651,0,0,1,35.3-.138C44.3,33.03,31.063,34.285,31.063,43.937Z" transform="translate(-9 -4.5)" fill="#c1c1c1"/>
+        <div class="menu" id="login">
+            <svg xmlns="http://www.w3.org/2000/svg" width="57.089" height="57.089" viewBox="0 0 57.089 57.089">
+                <path id="Icon_material-account-circle" data-name="Icon material-account-circle" d="M31.545,3A28.545,28.545,0,1,0,60.089,31.545,28.555,28.555,0,0,0,31.545,3Zm0,8.563a8.563,8.563,0,1,1-8.563,8.563A8.552,8.552,0,0,1,31.545,11.563Zm0,40.533a20.554,20.554,0,0,1-17.127-9.191c.086-5.68,11.418-8.792,17.127-8.792,5.68,0,17.041,3.111,17.127,8.792A20.554,20.554,0,0,1,31.545,52.1Z" transform="translate(-3 -3)" fill="#c1c1c1"/>
             </svg>
-            <span>HOW TO PLAY</span>
+            <span>LOGIN /<br>REGISTER</span>
         </div>
         <div class="menu" id="quickmatch">
             <svg xmlns="http://www.w3.org/2000/svg" width="83.028" height="141.951" viewBox="0 0 83.028 141.951">
@@ -26,12 +54,18 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="63.142" height="44.2" viewBox="0 0 63.142 44.2">
                 <path id="Icon_awesome-user-friends" data-name="Icon awesome-user-friends" d="M18.943,24.35A11.05,11.05,0,1,0,7.893,13.3,11.044,11.044,0,0,0,18.943,24.35Zm7.577,3.157H25.7a15.256,15.256,0,0,1-13.516,0h-.819A11.369,11.369,0,0,0,0,38.873v2.841A4.737,4.737,0,0,0,4.736,46.45H33.15a4.737,4.737,0,0,0,4.736-4.736V38.873A11.369,11.369,0,0,0,26.52,27.507ZM47.357,24.35a9.471,9.471,0,1,0-9.471-9.471A9.474,9.474,0,0,0,47.357,24.35Zm4.736,3.157h-.375a12.441,12.441,0,0,1-8.722,0h-.375a10.958,10.958,0,0,0-5.5,1.519,14.438,14.438,0,0,1,3.917,9.846v3.789c0,.217-.049.424-.059.631H58.407a4.737,4.737,0,0,0,4.736-4.736,11.044,11.044,0,0,0-11.05-11.05Z" transform="translate(0 -2.25)" fill="#c1c1c1"/>
             </svg>
-            <span>CREATE/JOIN<BR>SESSION</span>
+            <span>CREATE / JOIN<BR>SESSION</span>
         </div>
     </div>
 
     <footer class="footer">
-        <button>about</button>
+        <div class="footeritem">
+            <a href="/howto" title="HOW TO PLAY">HOW TO PLAY</a>
+        </div>
+        <div class="footeritem">
+            <a href="/about" title="ABOUT">ABOUT</a>
+        </div>
+        <img src="/public/images/logo_footer.png" alt="Footer Logo" style="margin-left: auto;">
     </footer>
 </div>
 

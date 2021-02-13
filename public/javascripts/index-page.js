@@ -1,28 +1,39 @@
 // const purple = "#7600FF";
 // const lightgrey = "#C1C1C1";
 // const white = "#fff";
-// function setColor(menuitem, color){
-//     // 아이콘과 텍스트 색깔 변경
-//     menuitem.style.color = color;
-//     menuitem.querySelector('path').setAttribute("fill", color);
-// }
 
 document.querySelectorAll('.menu').forEach(item => {
     if (item.id === "quickmatch"){
         //QUICK MATCH button
-        item.addEventListener('click', event => {
+        item.addEventListener('click', () => {
             window.location.href = '/game';
         });
-    }else if (item.id === "howto") {
-        //HOW TO PLAY button
-        item.addEventListener('click', event => {
-            window.location.href = '/howto';
+    }else if (item.id === "login") {
+        //login button
+        item.addEventListener('click', () => {
+            // 로그인 모달 띄우기??
+            toggleModal();
         });
     }else{
         //CREATE/JOIN SESSION button
         item.addEventListener('click', event => {
-            // 로그인 모달 띄우기??
+
         });
     }
 });
 
+document.querySelectorAll('.overlay').forEach(item => {
+    item.addEventListener('click', () => {
+        toggleModal();
+    });
+});
+
+
+function toggleModal(){
+    let modal = document.querySelector(".modal-wrapper");
+    if (modal.style.display === "none"){
+        modal.style.display = "flex";
+    }else{
+        modal.style.display = "none";
+    }
+}

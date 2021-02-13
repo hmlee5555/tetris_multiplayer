@@ -132,8 +132,8 @@ class ConnectionManager {
       tetris.updateScore(value);
     } else if(prop === "gameOver" && value === 1){
       // gameOver된 player가 있으면 peer들은 data의 gameover prop을 통해 이를 알 수 있음
-      document.querySelector(".modal-gameover").style.display = "flex";
-      document.querySelector(".modal-gameover p").innerText = "You Win!";
+      document.querySelector("#game-over-modal").style.display = "flex";
+      document.querySelector("#game-over-modal p").innerText = "You Win!";
     } else {
       tetris.draw(); // score 이외의 경우는 move, rotate, arena 변화 등이므로 다시 tetris draw.
     }
@@ -150,17 +150,17 @@ class ConnectionManager {
       window.location.hash = data.session_id; // 참가한 세션의 id -> URL 끝에 hash와 함께 붙임
       
       // 게임 시작까지 3초 걸린다는 창 띄우기
-      document.querySelector(".modal-wrapper").style.display = "flex";
+      document.querySelector("#game-start-modal").style.display = "flex";
       let waitingtime = 2;
       let timerId = setInterval(()=>{
-        document.querySelector(".modal-wrapper p").innerText = waitingtime;
+        document.querySelector("#game-start-modal p").innerText = waitingtime;
         waitingtime--;
         if(waitingtime === 0){
           clearInterval(timerId);
         }
       }, 1000);
       setTimeout(() => {
-        document.querySelector(".modal-wrapper").style.display = "none";
+        document.querySelector("#game-start-modal").style.display = "none";
         this.localTetris.playerReset();
         this.localTetris.arena.clear();
         this.localTetris.run(); // client가 2명 이상이므로 테트리스 실행

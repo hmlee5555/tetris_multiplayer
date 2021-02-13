@@ -34,8 +34,8 @@ class Tetris {
       lastTime = time;
 
       if(this.player.gameOver === 1){
-        document.querySelector(".modal-gameover").style.display = "flex";
-        document.querySelector(".modal-gameover p").innerText = "You LOSE!";
+        document.querySelector("#game-over-modal").style.display = "flex";
+        document.querySelector("#game-over-modal p").innerText = "You LOSE!";
       }
       this.player.update(deltaTime);
       this.draw();
@@ -48,8 +48,8 @@ class Tetris {
 
   // game over가 일어날때 
   gameIsOver(){
-    document.querySelector(".modal-gameover").style.display = "flex";
-    document.querySelector(".modal-gameover p").innerText = "You Win!";
+    document.querySelector("#game-over-modal").style.display = "flex";
+    document.querySelector("#game-over-modal p").innerText = "You Win!";
   }
 
   // 플레이어 reset
