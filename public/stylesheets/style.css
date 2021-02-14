@@ -76,7 +76,7 @@ canvas {
   padding: 50px;
   border-radius: 10px;
   width: 320px;
-  color: #C1C1C1;
+  color: #c1c1c1;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -85,10 +85,16 @@ canvas {
   font-size: 35px;
   font-weight: bold;
   color: white;
+  margin-bottom: 20px;
+}
+.modal-error {
+  font-size: 16px;
+  color: red;
+  margin-bottom: 10px;
 }
 
 .modal p {
-  font-size: 20px;
+  font-size: 50px;
 }
 
 .form-group {
@@ -104,7 +110,7 @@ canvas {
   width: 100%;
   box-sizing: border-box; /*padding해도 width 100% 넘지않도록*/
   padding: 15px;
-  background: #3B3B48;
+  background: #3b3b48;
   color: white;
   border-radius: 5px;
 
@@ -126,22 +132,26 @@ canvas {
   transition: 0.3s;
 }
 .btn-primary {
-  background: #7600FF;
+  background: #7600ff;
 }
 .btn-secondary {
-  background: #3B3B48;
+  background: #3b3b48;
+  text-decoration: none;
 }
 .btn:hover {
   background: white;
-  color: #7600FF;
+  color: #7600ff;
 }
 
 /*index.html*/
 
-@font-face { font-family: Facon; src: url('/public/Facon.ttf'); }
+@font-face {
+  font-family: Facon;
+  src: url("/public/Facon.ttf");
+}
 
 .indexContainer {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   display: flex;
   flex: 1;
   height: 100vh;
@@ -158,10 +168,10 @@ canvas {
   align-items: center;
 }
 .logoContainer a,
-.logoContainer span  {
+.logoContainer span {
   font-size: 16px;
   font-style: italic;
-  color: #C1C1C1;
+  color: #c1c1c1;
 }
 .logoContainer a:hover {
   color: white;
@@ -179,7 +189,7 @@ canvas {
   padding-right: 50px;
   padding-bottom: 30px;
   padding-left: 50px;
-  color: #C1C1C1;
+  color: #c1c1c1;
   cursor: pointer;
 
   /*background: aqua;*/
@@ -193,7 +203,7 @@ canvas {
   font-size: 21px;
   font-weight: lighter;
 }
-#quickmatch span{
+#quickmatch span {
   transition: 0.3s;
   padding-top: 30px;
   font-family: Facon;
@@ -201,12 +211,14 @@ canvas {
   color: white;
   font-weight: bold;
 }
-.menu:hover, .menu:hover path, #quickmatch:hover span{
+.menu:hover,
+.menu:hover path,
+#quickmatch:hover span {
   transition: 0.3s;
-  color: #7600FF; /*text*/
-  fill: #7600FF; /*svg path*/
+  color: #7600ff; /*text*/
+  fill: #7600ff; /*svg path*/
 }
-.menu path{
+.menu path {
   transition: 0.3s;
 }
 
@@ -220,14 +232,15 @@ canvas {
 .footeritem {
   margin-right: 35px;
 }
-.footer a{
-  font-family: 'Roboto', sans-serif;
+.footer a {
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-weight: lighter;
   text-decoration: none;
-  color: #C1C1C1;
+  color: #c1c1c1;
 }
-.footer a::before{  /*bold로 바뀔때 shifting하는거 방지: */
+.footer a::before {
+  /*bold로 바뀔때 shifting하는거 방지: */
   /*before pseudo-element로 bold 공간 reserve*/
   /*<a> 태그의 title property 이용 */
   display: block;
@@ -237,7 +250,23 @@ canvas {
   overflow: hidden;
   visibility: hidden;
 }
-.footer a:hover{
+.footer a:hover {
   font-weight: bold;
 }
 
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.registerForm,
+.mypageForm {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

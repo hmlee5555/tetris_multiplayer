@@ -1,6 +1,8 @@
 // const purple = "#7600FF";
 // const lightgrey = "#C1C1C1";
 // const white = "#fff";
+const loginModal = document.querySelector('#login-modal');
+const sessionModal = document.querySelector('#session-modal');
 
 document.querySelectorAll('.menu').forEach(item => {
     if (item.id === "quickmatch"){
@@ -9,31 +11,39 @@ document.querySelectorAll('.menu').forEach(item => {
             window.location.href = '/game';
         });
     }else if (item.id === "login") {
+        //login button : 로그인 모달 띄우기
+        item.addEventListener('click', () => {
+            // 로그인 모달 토글
+            toggleModal(loginModal);
+        });
+    }else if (item.id === "mypage") {
         //login button
         item.addEventListener('click', () => {
             // 로그인 모달 띄우기??
-            toggleModal();
+            window.location.href = '/mypage';
         });
     }else{
         //CREATE/JOIN SESSION button
-        item.addEventListener('click', event => {
+        item.addEventListener('click', () => {
 
+            toggleModal(sessionModal);
         });
     }
 });
 
 document.querySelectorAll('.overlay').forEach(item => {
     item.addEventListener('click', () => {
-        toggleModal();
+        // overlay에 클릭하므로 그의 parentNode가 modal-wrapper
+        toggleModal(item.parentNode);
     });
 });
 
 
-function toggleModal(){
-    let modal = document.querySelector(".modal-wrapper");
-    if (modal.style.display === "none"){
-        modal.style.display = "flex";
+function toggleModal(wrapper){
+    if (wrapper.style.display === "none"){
+        wrapper.style.display = "flex";
     }else{
-        modal.style.display = "none";
+        wrapper.style.display = "none";
+        wrapper.querySelector('.modal-error').innerHTML = "";
     }
 }
