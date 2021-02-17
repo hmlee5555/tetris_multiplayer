@@ -13,17 +13,24 @@ document.querySelectorAll('.menu').forEach(item => {
     }else if (item.id === "login") {
         //login button : 로그인 모달 띄우기
         item.addEventListener('click', () => {
+            // 로그인 모달 토글
             toggleModal(loginModal);
+        });
+    }else if (item.id === "mypage") {
+        //login button
+        item.addEventListener('click', () => {
+            // 로그인 모달 띄우기??
+            window.location.href = '/mypage';
         });
     }else{
         //CREATE/JOIN SESSION button
         item.addEventListener('click', () => {
+
             toggleModal(sessionModal);
         });
     }
 });
 
-//모달 밖 영역 클릭하면 모달 닫기
 document.querySelectorAll('.overlay').forEach(item => {
     item.addEventListener('click', () => {
         // overlay에 클릭하므로 그의 parentNode가 modal-wrapper
@@ -31,7 +38,7 @@ document.querySelectorAll('.overlay').forEach(item => {
     });
 });
 
-// 모달 toggle: wrapper HTML elemnet를 받음
+
 function toggleModal(wrapper){
     if (wrapper.style.display === "none"){
         wrapper.style.display = "flex";

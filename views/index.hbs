@@ -1,31 +1,37 @@
-<div class="modal-wrapper" id="login-modal" style="display: none">
+<div class="modal-wrapper" id="login-modal" {{#if message}} style="display: flex" {{else}} style="display: none"
+    {{/if}}>
     <div class="overlay"></div>
     <div class="modal">
         <div class="modal-title">Login</div>
-        <div class="modal-error">{{ loginErr }}</div>
-        <form method="POST">
+        <form action="/auth/login" method="POST">
             <div class="form-group">
-                <label for="username" style="display: none;">Username</label>
-                <input class="form-input" type="text" id="username" name="username" placeholder="Username" />
+                <label for="email" style="display: none;"></label>
+                <input class="form-input" type="email" id="email" name="email" placeholder="Email" />
             </div>
             <div class="form-group">
-                <label for="password" style="display: none;">Password</label>
+                <label for="password" style="display: none;"></label>
                 <input class="form-input" type="password" id="password" name="password" placeholder="Password" />
             </div>
-<!--            <div class="form-group">-->
-<!--                <div class="custom-control custom-checkbox">-->
-<!--                    <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" />-->
-<!--                    <label class="custom-control-label" for="rememberPasswordCheck">Remember password</label>-->
-<!--                </div>-->
-<!--            </div>-->
+            <!--            <div class="form-group">-->
+            <!--                <div class="custom-control custom-checkbox">-->
+            <!--                    <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" />-->
+            <!--                    <label class="custom-control-label" for="rememberPasswordCheck">Remember password</label>-->
+            <!--                </div>-->
+            <!--            </div>-->
             <div class="form-group">
-<!--                <a class="small" href="/password">Forgot Password?</a>-->
+                <!--                <a class="small" href="/password">Forgot Password?</a>-->
                 <button class="btn btn-primary" type="submit">Login</button>
-                <button class="btn btn-secondary" type="button" onclick="window.location.href='/register'">Register</button>
+                <button class="btn btn-secondary" type="button"
+                    onclick="window.location.href='/register'">Register</button>
             </div>
+            {{#if message}}
+            <h4 style="color: red">{{ message }}</h4>
+            {{/if}}
         </form>
     </div>
 </div>
+
+
 <div class="modal-wrapper" id="session-modal" style="display: {{#if sessionErr}}flex{{else}}none{{/if}};">
     <div class="overlay"></div>
     <div class="modal">
@@ -38,11 +44,12 @@
             </div>
             <div class="form-group">
                 <button class="btn btn-primary" type="submit">Join</button>
-<!--                <button class="btn btn-secondary" type="submit">Create</button>-->
+                <!--                <button class="btn btn-secondary" type="submit">Create</button>-->
             </div>
         </form>
     </div>
 </div>
+
 
 <div class="indexContainer">
     <div class="logoContainer">
@@ -50,29 +57,45 @@
 
         <span>A JavaScript-based Tetris Multiplayer Game.
             <br>
-            Original game code based off of <a href="https://github.com/meth-meth-method/tetris-network-multiplayer">Meth Meth Method</a>
+            Original game code based off of <a
+                href="https://github.com/meth-meth-method/tetris-network-multiplayer">Meth Meth Method</a>
         </span>
     </div>
 
     <div class="menuContainer">
-        <div class="menu" id="login">
+        <div class="menu" {{#if session.token}} id="mypage" {{else}} id="login" {{/if}}>
             <svg xmlns="http://www.w3.org/2000/svg" width="57.089" height="57.089" viewBox="0 0 57.089 57.089">
-                <path id="Icon_material-account-circle" data-name="Icon material-account-circle" d="M31.545,3A28.545,28.545,0,1,0,60.089,31.545,28.555,28.555,0,0,0,31.545,3Zm0,8.563a8.563,8.563,0,1,1-8.563,8.563A8.552,8.552,0,0,1,31.545,11.563Zm0,40.533a20.554,20.554,0,0,1-17.127-9.191c.086-5.68,11.418-8.792,17.127-8.792,5.68,0,17.041,3.111,17.127,8.792A20.554,20.554,0,0,1,31.545,52.1Z" transform="translate(-3 -3)" fill="#c1c1c1"/>
+                <path id="Icon_material-account-circle" data-name="Icon material-account-circle"
+                    d="M31.545,3A28.545,28.545,0,1,0,60.089,31.545,28.555,28.555,0,0,0,31.545,3Zm0,8.563a8.563,8.563,0,1,1-8.563,8.563A8.552,8.552,0,0,1,31.545,11.563Zm0,40.533a20.554,20.554,0,0,1-17.127-9.191c.086-5.68,11.418-8.792,17.127-8.792,5.68,0,17.041,3.111,17.127,8.792A20.554,20.554,0,0,1,31.545,52.1Z"
+                    transform="translate(-3 -3)" fill="#c1c1c1" />
             </svg>
+            {{#if session.token}}
+            <span>{{session.user.name}}/<br>MY PAGE</span>
+            {{else}}
             <span>LOGIN /<br>REGISTER</span>
+            {{/if}}
         </div>
         <div class="menu" id="quickmatch">
             <svg xmlns="http://www.w3.org/2000/svg" width="83.028" height="141.951" viewBox="0 0 83.028 141.951">
-                <path id="Path_1" data-name="Path 1" d="M978.475,681.826l58.7-82.733-10.639,59.263H1061.5l-58.726,82.687,10.983-59.218Z" transform="translate(-978.475 -599.093)" fill="#fff"/>
+                <path id="Path_1" data-name="Path 1"
+                    d="M978.475,681.826l58.7-82.733-10.639,59.263H1061.5l-58.726,82.687,10.983-59.218Z"
+                    transform="translate(-978.475 -599.093)" fill="#fff" />
             </svg>
             <span>QUICK MATCH</span>
         </div>
         <div class="menu" id="createjoin">
             <svg xmlns="http://www.w3.org/2000/svg" width="63.142" height="44.2" viewBox="0 0 63.142 44.2">
-                <path id="Icon_awesome-user-friends" data-name="Icon awesome-user-friends" d="M18.943,24.35A11.05,11.05,0,1,0,7.893,13.3,11.044,11.044,0,0,0,18.943,24.35Zm7.577,3.157H25.7a15.256,15.256,0,0,1-13.516,0h-.819A11.369,11.369,0,0,0,0,38.873v2.841A4.737,4.737,0,0,0,4.736,46.45H33.15a4.737,4.737,0,0,0,4.736-4.736V38.873A11.369,11.369,0,0,0,26.52,27.507ZM47.357,24.35a9.471,9.471,0,1,0-9.471-9.471A9.474,9.474,0,0,0,47.357,24.35Zm4.736,3.157h-.375a12.441,12.441,0,0,1-8.722,0h-.375a10.958,10.958,0,0,0-5.5,1.519,14.438,14.438,0,0,1,3.917,9.846v3.789c0,.217-.049.424-.059.631H58.407a4.737,4.737,0,0,0,4.736-4.736,11.044,11.044,0,0,0-11.05-11.05Z" transform="translate(0 -2.25)" fill="#c1c1c1"/>
+                <path id="Icon_awesome-user-friends" data-name="Icon awesome-user-friends"
+                    d="M18.943,24.35A11.05,11.05,0,1,0,7.893,13.3,11.044,11.044,0,0,0,18.943,24.35Zm7.577,3.157H25.7a15.256,15.256,0,0,1-13.516,0h-.819A11.369,11.369,0,0,0,0,38.873v2.841A4.737,4.737,0,0,0,4.736,46.45H33.15a4.737,4.737,0,0,0,4.736-4.736V38.873A11.369,11.369,0,0,0,26.52,27.507ZM47.357,24.35a9.471,9.471,0,1,0-9.471-9.471A9.474,9.474,0,0,0,47.357,24.35Zm4.736,3.157h-.375a12.441,12.441,0,0,1-8.722,0h-.375a10.958,10.958,0,0,0-5.5,1.519,14.438,14.438,0,0,1,3.917,9.846v3.789c0,.217-.049.424-.059.631H58.407a4.737,4.737,0,0,0,4.736-4.736,11.044,11.044,0,0,0-11.05-11.05Z"
+                    transform="translate(0 -2.25)" fill="#c1c1c1" />
             </svg>
             <span>CREATE / JOIN<BR>SESSION</span>
         </div>
+    </div>
+    <div>
+        {{#if session.user}}
+        <h4 style="color: white">{{ session.user.name }} logged in!</h4>
+        {{/if}}
     </div>
 
     <footer class="footer">
@@ -82,10 +105,13 @@
         <div class="footeritem">
             <a href="/about" title="ABOUT">ABOUT</a>
         </div>
+        {{#if session.token}}
+        <div class="footeritem">
+            <a href="/logout" title="LOGOUT">LOGOUT</a>
+        </div>
+        {{/if}}
         <img src="/public/images/logo_footer.png" alt="Footer Logo" style="margin-left: auto;">
     </footer>
 </div>
 
 <script src="/public/javascripts/index-page.js"></script>
-
-
