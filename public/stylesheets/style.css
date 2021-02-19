@@ -2,7 +2,7 @@ body {
   background: #202028;
   display: flex;
   color: #fff;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
   text-align: center;
 }
 
@@ -99,9 +99,15 @@ canvas {
 
 .form-group {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
   width: 100%;
   margin-top: 14px;
+}
+.btn-group {
+  flex-direction: row;
+  justify-content: flex-start;
 }
 
 .form-input {
@@ -254,13 +260,6 @@ canvas {
   font-weight: bold;
 }
 
-.card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .registerForm,
 .mypageForm {
   width: 100vw;
@@ -269,4 +268,24 @@ canvas {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+label {
+  font-size: 20px;
+  color: #c1c1c1;
+}
+
+.verticalLine {
+  position: absolute;
+  left: 50%;
+  height: 80vh;
+  width: 2px;
+  background: #3b3b48;
 }

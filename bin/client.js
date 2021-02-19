@@ -7,7 +7,7 @@ class Client{
         this.state = null;
     }
 
-    // 세션의 모든 client에세 send함
+    // 세션의 모든 client에게 send함
     broadcast(data){
         if (!this.session) { // 세션 없을 경우 방지
             throw new Error('Cannot broadcast without session')

@@ -1,5 +1,4 @@
-<div class="modal-wrapper" id="login-modal" {{#if message}} style="display: flex" {{else}} style="display: none"
-    {{/if}}>
+<div class="modal-wrapper" id="login-modal"  style="display: {{#if message}}flex{{else}}none{{/if}}">
     <div class="overlay"></div>
     <div class="modal">
         <div class="modal-title">Login</div>
@@ -18,7 +17,7 @@
             <!--                    <label class="custom-control-label" for="rememberPasswordCheck">Remember password</label>-->
             <!--                </div>-->
             <!--            </div>-->
-            <div class="form-group">
+            <div class="form-group btn-group">
                 <!--                <a class="small" href="/password">Forgot Password?</a>-->
                 <button class="btn btn-primary" type="submit">Login</button>
                 <button class="btn btn-secondary" type="button"
@@ -32,12 +31,12 @@
 </div>
 
 
-<div class="modal-wrapper" id="session-modal" style="display: {{#if sessionErr}}flex{{else}}none{{/if}};">
+<div class="modal-wrapper" id="session-modal" style="display: {{#if sessionErr}}flex{{else}}none{{/if}}">
     <div class="overlay"></div>
     <div class="modal">
         <div class="modal-title">Create / Join Session</div>
         <div class="modal-error">{{ sessionErr }}</div>
-        <form method="POST">
+        <form action="/" method="POST">
             <div class="form-group">
                 <label for="sessionid" style="display: none;">Session ID</label>
                 <input class="form-input" type="text" id="sessionid" name="sessionid" placeholder="Enter Session ID" />
@@ -53,7 +52,9 @@
 
 <div class="indexContainer">
     <div class="logoContainer">
-        <img src="/public/images/logo.png" alt="Tetris Battle Logo" width="561px" height="235px">
+        <a href="/">
+            <img src="/public/images/logo.png" alt="Tetris Battle Logo" width="561px" height="235px">
+        </a>
 
         <span>A JavaScript-based Tetris Multiplayer Game.
             <br>
@@ -94,7 +95,7 @@
     </div>
     <div>
         {{#if session.user}}
-        <h4 style="color: white">{{ session.user.name }} logged in!</h4>
+        <h4 style="color: white">{{ session.user.name }} Logged In!</h4>
         {{/if}}
     </div>
 
@@ -110,7 +111,9 @@
             <a href="/logout" title="LOGOUT">LOGOUT</a>
         </div>
         {{/if}}
-        <img src="/public/images/logo_footer.png" alt="Footer Logo" style="margin-left: auto;">
+        <a href="" style="margin-left: auto;">
+            <img src="/public/images/logo_footer.png" alt="Footer Logo">
+        </a>
     </footer>
 </div>
 

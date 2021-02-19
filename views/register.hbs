@@ -1,31 +1,31 @@
 <div class="registerForm">
     <div class="card">
-        <div class="card-header">
-            Register Form
-        </div>
+        <div class="modal-title">Register User</div>
+        {{#if message}}
+            <h4 class="alert alert-danger mt-4">{{ message }}</h4>
+        {{/if}}
         <div class="card-body">
             <form action="/auth/register" method="POST">
                 <div class="form-group">
-                    <label for="name">Nickname</label>
-                    <input type="text" class="form-control" id="name" name="name">
+                    <label for="name" style="display: none">Nickname</label>
+                    <input type="text" class="form-input" id="name" name="name" placeholder="Nickname">
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email">
+                    <label for="email" style="display: none">Email</label>
+                    <input type="email" class="form-input" id="email" name="email" placeholder="Email">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password">
+                    <label for="password" style="display: none">Password</label>
+                    <input type="password" class="form-input" id="password" name="password" placeholder="Password">
                 </div>
                 <div class="form-group">
-                    <label for="passwordConfirm">Confirm Password</label>
-                    <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm">
+                    <label for="passwordConfirm" style="display: none">Confirm Password</label>
+                    <input type="password" class="form-input" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm Password">
                 </div>
-                <button type="submit" class="btn btn-primary">Register User</button>
+                <br><br>
+                <button type="submit" class="btn btn-primary">Register</button>
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='/'">Back to Home</button>
             </form>
         </div>
     </div>
-    {{#if message}}
-    <h4 class="alert alert-danger mt-4">{{ message }}</h4>
-    {{/if}}
 </div>

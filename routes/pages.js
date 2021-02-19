@@ -6,7 +6,7 @@ const router = express.Router();
 /* GET home page. */
 router.get('/', authController.auth, function(req, res) {
     res.render('index', { 
-        title: 'Tetris Homepage',
+        title: 'Tetris Battle',
         //cookies: req.cookies,
         session: req.session,
      });
@@ -33,35 +33,35 @@ router.post('/', (req,res) => {
   }
   // 에러 없을시에만 /game으로 이동
   if (err){
-    res.render('index', { title: 'Tetris Homepage', sessionErr: err });
+    return res.status(400).render('index', {
+        title: 'Tetris Battle',
+        sessionErr: err,
+        message: '',
+    });
   }else{
-    res.redirect(`/game#${sessionid}`);
+    return res.redirect(`/game#${sessionid}`);
   }
-});
-
-/* GET users listing. */
-router.get('/users', function(req, res, next) {
-  res.send('respond with a resource');
 });
 
 /* GET home page. */
 router.get('/game', function(req, res, next) {
-    res.render('game', { title: 'Tetris' });
+    res.render('game', { title: 'Tetris Battle' });
 });
 
 router.get('/register', (req, res)=>{
     res.render('register'); // views의 register 파일과 연동
 })
 
-router.get('/mypage', authController.auth, (req, res)=>{
-    res.render('mypage', { 
-        title: 'Tetris-mypage',
-        session: req.session, }); // views의 register 파일과 연동
-})
+// 마이페이지 따로 필요??
+// router.get('/mypage', authController.auth, (req, res)=>{
+//     res.render('mypage', {
+//         title: 'My Page - Tetris Battle',
+//         session: req.session, }); // views의 register 파일과 연동
+// })
 
 router.get('/update_info', authController.auth, (req, res)=>{
     res.render('update_info', { 
-        title: 'Tetris-mypage',
+        title: 'My Page - Tetris Battle',
         session: req.session, }); // views의 register 파일과 연동
 })
 

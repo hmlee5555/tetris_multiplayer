@@ -17,10 +17,8 @@ document.querySelectorAll('.menu').forEach(item => {
             toggleModal(loginModal);
         });
     }else if (item.id === "mypage") {
-        //login button
         item.addEventListener('click', () => {
-            // 로그인 모달 띄우기??
-            window.location.href = '/mypage';
+            window.location.href = '/update_info';
         });
     }else{
         //CREATE/JOIN SESSION button
@@ -44,6 +42,7 @@ function toggleModal(wrapper){
         wrapper.style.display = "flex";
     }else{
         wrapper.style.display = "none";
-        wrapper.querySelector('.modal-error').innerHTML = "";
+        // 모달 닫을 시 에러문구 삭제
+        //wrapper.querySelector('.modal-error').innerHTML = "";
     }
 }

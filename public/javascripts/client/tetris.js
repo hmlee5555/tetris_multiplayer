@@ -32,32 +32,27 @@ class Tetris {
     this._update = (time = 0) => {
       const deltaTime = time - lastTime;
       lastTime = time;
-
-      if(this.player.gameOver === 1){
-        document.querySelector("#game-over-modal").style.display = "flex";
-        document.querySelector("#game-over-modal p").innerText = "You LOSE!";
+      if(this.player.gameOver === 0){
+        this.player.update(deltaTime);
+        this.draw();
+        this.reqId = requestAnimationFrame(this._update);
       }
-      this.player.update(deltaTime);
-      this.draw();
-      this.reqId = requestAnimationFrame(this._update);
     };
     this.updateScore(0);
 
     this.reqId = null; // requestAnimationFrame을 호출하여 반환된 ID
   }
 
-  // game over가 일어날때 
-  gameIsOver(){
-    document.querySelector("#game-over-modal").style.display = "flex";
-    document.querySelector("#game-over-modal p").innerText = "You Win!";
-  }
-
   // 플레이어 reset
   playerReset(){
+    this.player.gameOver = 0;
     this.player.dropInterval = this.player.DROP_SLOW;
     this.player.time = 0;
     this.player.speed = 0;
-    this.player.gameOver = 0;
+    this.player.score = 0;
+    this.updateScore(this.player.score);
+    this.arena.clear();
+    this.player.reset();
   }
 
   // 현재 상태 출력: 현재 쌓인 상태(arena)출력하고 내 현재 모양(player)출력함
@@ -169,13 +164,53 @@ class Tetris {
 
   // tetris 실행 (업뎃시작)
   run() {
-    this.player.timer();
+    if (!this.player.timerID) {
+      this.player.timer();
+    }
     this._update();
   }
 
-  stop() {
-    cancelAnimationFrame(this.reqId);
+  // 3초 창 띄우고 게임 시작
+  startGame() {
+    this.playerReset(); // 게임 초기화
+    this.draw();        // 3초 준비하면서 첫 블록 보이도록
+
+    // 게임오버 창 지우기
+    document.querySelector("#game-over-modal").style.display = "none";
+    // 게임 시작까지 3초 걸린다는 창 띄우기
+    document.querySelector("#game-start-modal").style.display = "flex";
+    document.querySelector("#game-start-modal p").innerText = "3";
+    let waitingtime = 2;
+    let timerId = setInterval(()=>{
+      document.querySelector("#game-start-modal p").innerText = waitingtime;
+      waitingtime--;
+      if(waitingtime === 0){
+        clearInterval(timerId);
+      }
+    }, 1000);
+    setTimeout(() => {
+      document.querySelector("#game-start-modal").style.display = "none";
+      this.run();
+    }, 3000);
   }
+
+  stopGame(){
+    // GAME OVER
+    this.player.gameOver = 1;
+    cancelAnimationFrame(this.reqId);   // animation request 해제
+    clearInterval(this.player.timerID); // 게임 타이머 해제
+    this.player.timerID = null;
+    this.player.tetris.draw();
+    this.player.savedPiece = -1; // 저장된 piece와 next piece 초기화
+    this.player.nextPiece = (pieces.length * Math.random()) | 0;
+    document.querySelector("#game-over-modal").style.display = "flex";
+    document.querySelector("#game-over-modal p").innerText = "You LOSE!";
+    // time, speed 초기화는 replay 버튼 누를 시 함
+  }
+
+  // stop() {
+  //   cancelAnimationFrame(this.reqId);
+  // }
 
   // 현재 상태를 한번에 보여주는 object 반환
   serialize() {

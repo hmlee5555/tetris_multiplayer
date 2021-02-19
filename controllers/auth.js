@@ -17,7 +17,7 @@ exports.login = async (req, res) => {
         if( !email || !password ){
             //modal.style.display = "flex";
             return res.status(400).render('index', {
-                message: 'Please provide an email and password'
+                message: 'Please fill in all fields'
             })
         }
 
@@ -69,13 +69,20 @@ exports.register = (req, res)=>{
     // 위의 주석과 기능 동일
     const { name, email, password, passwordConfirm } = req.body;
 
+    if( !(name && email && password && passwordConfirm) ){
+        // 빈칸 다 채워라
+        return res.render('register', {
+            message: "Please fill in all fields"
+        })
+    }
+
     db.query('SELECT name FROM users WHERE name = ?', [name], async (error, results)=>{
         if(error){  // connection, web, ...etc something wrong
             console.log(error);
         }
         if( results.length > 0 ){
             return res.render('register', {
-                message: "That Nickname is already in use"
+                message: "Nickname already in use"
             })
         }
         else{
@@ -86,7 +93,7 @@ exports.register = (req, res)=>{
 
                 if( results.length > 0 ){
                     return res.render('register', {
-                        message: "That email is already in use"
+                        message: "Email already in use"
                     })
                 } else if( password !== passwordConfirm ){
                     return res.render('register', {
@@ -130,7 +137,7 @@ exports.update = async (req, res)=>{
         console.log("User name was not changed!");
         if(!password){
             return res.render('update_info', {
-                message: 'Please provide and password',
+                message: 'Please provide password',
                 session: req.session
             })
         }
@@ -158,7 +165,7 @@ exports.update = async (req, res)=>{
         })
     }
     else{
-        console.log("User name was changed!");
+        console.log("User name changed!");
         db.query('SELECT name FROM users WHERE name = ?', [name], async (error, results)=>{
             if(error){  // connection, web, ...etc something wrong
                 console.log(error);
@@ -172,7 +179,7 @@ exports.update = async (req, res)=>{
             else{
                 if(!password){
                     return res.render('update_info', {
-                        message: 'Please provide and password',
+                        message: 'Please provide password',
                         session: req.session
                     })
                 }

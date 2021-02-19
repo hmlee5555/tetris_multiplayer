@@ -1,22 +1,21 @@
 <div class="mypageForm">
     <div class="card">
-        <div class="card-header">
+        <div class="modal-title">
             MY PAGE
         </div>
         <div class="card-body">
-
             <div class="form-group">
-                <span>Nickname: </span>
-                <span> {{session.user.name}}</span>
+                <label for="name" >Nickname</label>
+                <input disabled type="text" class="form-input" id="name" name="name" value="{{session.user.name}}">
             </div>
             <div class="form-group">
-                <span>Email: </span>
-                <span> {{session.user.email}}</span>
+                <label for="email" >Email</label>
+                <input disabled type="text" class="form-input" id="email" name="email" value="{{session.user.email}}">
             </div>
-
         </div>
+        <br>
         <div class="card-footer">
-            <a href="/update_info">Update my info</a>
+            <button type="button" class="btn btn-secondary" onclick="window.location.href='/update_info'">Update my info</button>
         </div>
     </div>
 </div>

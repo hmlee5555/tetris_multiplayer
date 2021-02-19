@@ -18,6 +18,7 @@ class Player {
     this.savesLeft = 1; // save 기회 수 (1이면 save된거랑 교체할 기회 한번)
     this.score = 0;
     // time, speed
+    this.timerID = null; // 게임 타이머 setInterval 아이디
     this.time = 0;
     this.speed = 0;
 
@@ -28,7 +29,12 @@ class Player {
 
   // 게임 시간 타이머
   timer() {
-    setInterval(() => {
+    /***
+     * 1. 아래 방향키 누를때마다 interval이 DROP_SLOW로 리셋돼서 사실상 스피드 올라가지 X
+     * 2. 플레이하다가 다른 플레이어 들어올때마다 tetris.run()이 실행되는지 timer가 두배로 빨라짐
+     *    -> 플레이 도중에 다른 플레이어 들어올때 고려해야함.
+     */
+    this.timerID = setInterval(() => {
       this.time += 1;
       // time 조정
       if (this.dropInterval > 50) {
@@ -68,15 +74,7 @@ class Player {
 
     if (this.arena.collide(this)) {
       // GAME OVER
-      this.gameOver = 1;
-      this.savedPiece = -1; // 저장된 piece와 next piece 초기화
-      this.nextPiece = (pieces.length * Math.random()) | 0;
-      this.arena.clear();
-      this.score = 0;
-      // time, speed 초기화
-      this.time = 0;
-      this.speed = 0;
-      this.dropInterval = this.DROP_SLOW;
+      this.tetris.stopGame();
     }
 
     this.events.emit("pos", this.pos);

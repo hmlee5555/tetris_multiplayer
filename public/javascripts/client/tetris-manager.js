@@ -25,8 +25,6 @@ class TetrisManager{
     removePlayer(tetris){
         this.instances.delete(tetris);                  // instances 집합에서 tetris 제거
         this.document.body.removeChild(tetris.element); // html에서 제거
-
-
     }
 
     // sort순서대로 tetris표시

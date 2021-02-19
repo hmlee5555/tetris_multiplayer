@@ -9,12 +9,32 @@ localTetris.element.classList.add("local"); // css에서 내 tetris 테두리 �
 const connectionManager = new ConnectionManager(tetrisManager);
 connectionManager.connect("ws://localhost:3000");
 
+document.querySelector("#replayBtn").addEventListener('click', () => {
+
+  // session-broadcast와 같은 방식으로 서버에 보내서 동시에 startGame() 실행하도록 해야함...
+  //connectionManager.localTetris.player.events.emit("replay", 1);
+
+  connectionManager.localTetris.startGame();
+
+
+  // if (connectionManager.peers.size <= 1) {
+  //   // 플레이어 부족
+  // }else{
+  //
+  // }
+});
+
 const keyListener = event => {
   [
     [37, 39, 40, 81, 87, 38, 32, 67], // player 1 조작키
     [100, 102, 101, 52, 104, 54, 96, 107], // player 2 조작키
   ].forEach((key, index) => {
     const player = localTetris.player;
+
+    // 게임 진행중일때만 키입력 받음
+    if (!player.timerID){ // 진행중일때만 timerID존재 (게임오버 후나 카운트다운 중에는 키입력 X)
+      return;
+    }
     // player들끼리 키 꾹 누를때 간섭 없도록 keyup과 keydown을 나눔 - 나중에 online으로 가면 다시 원래대로 합치자
     // 근데 양옆으로 꾹 눌러서 이동할때는 안나눠서 여전히 간섭 남음. 어차피 online multiplayer로 가면 신경쓸 필요 없는 부분
     if (event.type === "keydown") {
