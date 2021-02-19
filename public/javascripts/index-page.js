@@ -23,7 +23,6 @@ document.querySelectorAll('.menu').forEach(item => {
     }else{
         //CREATE/JOIN SESSION button
         item.addEventListener('click', () => {
-
             toggleModal(sessionModal);
         });
     }
@@ -40,9 +39,10 @@ document.querySelectorAll('.overlay').forEach(item => {
 function toggleModal(wrapper){
     if (wrapper.style.display === "none"){
         wrapper.style.display = "flex";
+        wrapper.querySelector('label').focus(); // 입력창에 focus
     }else{
         wrapper.style.display = "none";
         // 모달 닫을 시 에러문구 삭제
-        //wrapper.querySelector('.modal-error').innerHTML = "";
+        wrapper.querySelector('.modal-error').innerHTML = "";
     }
 }

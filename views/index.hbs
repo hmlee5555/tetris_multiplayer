@@ -2,6 +2,7 @@
     <div class="overlay"></div>
     <div class="modal">
         <div class="modal-title">Login</div>
+        <div class="modal-error">{{#if message}}{{ message }}{{/if}}</div>
         <form action="/auth/login" method="POST">
             <div class="form-group">
                 <label for="email" style="display: none;"></label>
@@ -23,9 +24,6 @@
                 <button class="btn btn-secondary" type="button"
                     onclick="window.location.href='/register'">Register</button>
             </div>
-            {{#if message}}
-            <h4 style="color: red">{{ message }}</h4>
-            {{/if}}
         </form>
     </div>
 </div>
@@ -111,7 +109,7 @@
             <a href="/logout" title="LOGOUT">LOGOUT</a>
         </div>
         {{/if}}
-        <a href="" style="margin-left: auto;">
+        <a href="/" style="margin-left: auto;">
             <img src="/public/images/logo_footer.png" alt="Footer Logo">
         </a>
     </footer>

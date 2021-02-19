@@ -52,13 +52,6 @@ router.get('/register', (req, res)=>{
     res.render('register'); // views의 register 파일과 연동
 })
 
-// 마이페이지 따로 필요??
-// router.get('/mypage', authController.auth, (req, res)=>{
-//     res.render('mypage', {
-//         title: 'My Page - Tetris Battle',
-//         session: req.session, }); // views의 register 파일과 연동
-// })
-
 router.get('/update_info', authController.auth, (req, res)=>{
     res.render('update_info', { 
         title: 'My Page - Tetris Battle',
