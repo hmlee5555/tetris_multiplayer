@@ -37,26 +37,40 @@ router.post('/', (req,res) => {
         title: 'Tetris Battle',
         sessionErr: err,
         message: '',
+        session: req.session,
     });
   }else{
     return res.redirect(`/game#${sessionid}`);
   }
 });
 
-/* GET home page. */
 router.get('/game', function(req, res, next) {
-    res.render('game', { title: 'Tetris Battle' });
+    res.render('game', {
+        title: 'Play - Tetris Battle',
+        session: req.session,
+    });
 });
 
 router.get('/register', (req, res)=>{
-    res.render('register'); // views의 register 파일과 연동
+    res.render('register', {
+        title: 'Register - Tetris Battle',
+    });
 })
 
 router.get('/update_info', authController.auth, (req, res)=>{
     res.render('update_info', { 
         title: 'My Page - Tetris Battle',
-        session: req.session, }); // views의 register 파일과 연동
+        session: req.session,
+    }); // views의 register 파일과 연동
 })
+
+router.get('/about', function(req, res) {
+    res.render('about', {
+        title: 'About - Tetris Battle',
+        session: req.session,
+        about: true,
+    });
+});
 
 //router.post('/', authController.login);
 

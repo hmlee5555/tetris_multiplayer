@@ -178,11 +178,14 @@ class Tetris {
     // 게임오버 창 지우기
     document.querySelector("#game-over-modal").style.display = "none";
     // 게임 시작까지 3초 걸린다는 창 띄우기
+    document.querySelector("#game-start-modal .modal-footer").style.display = "none";
+    document.querySelector("#game-start-modal .modal-title").innerText = "GET READY";
+    document.querySelector("#game-start-modal .modal-counter").innerText = "3";
     document.querySelector("#game-start-modal").style.display = "flex";
-    document.querySelector("#game-start-modal p").innerText = "3";
+
     let waitingtime = 2;
     let timerId = setInterval(()=>{
-      document.querySelector("#game-start-modal p").innerText = waitingtime;
+      document.querySelector("#game-start-modal .modal-counter").innerText = waitingtime;
       waitingtime--;
       if(waitingtime === 0){
         clearInterval(timerId);
@@ -190,6 +193,8 @@ class Tetris {
     }, 1000);
     setTimeout(() => {
       document.querySelector("#game-start-modal").style.display = "none";
+      document.querySelector("#game-start-modal .modal-footer").style.display = "block";
+      document.querySelector("#game-start-modal .modal-title").innerText = "WAITING FOR PLAYERS...";
       this.run();
     }, 3000);
   }

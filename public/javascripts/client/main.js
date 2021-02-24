@@ -11,11 +11,7 @@ connectionManager.connect("ws://localhost:3000");
 
 document.querySelector("#replayBtn").addEventListener('click', () => {
 
-  // session-broadcast와 같은 방식으로 서버에 보내서 동시에 startGame() 실행하도록 해야함...
-  //connectionManager.localTetris.player.events.emit("replay", 1);
-
-  connectionManager.localTetris.startGame();
-
+  connectionManager.replayRequest();
 
   // if (connectionManager.peers.size <= 1) {
   //   // 플레이어 부족

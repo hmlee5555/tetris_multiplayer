@@ -1,9 +1,35 @@
+body,html { /*height 100vh때 scroll bar 생기지않도록*/
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background: #202028;
   display: flex;
   color: #fff;
   font-family: "Roboto", sans-serif;
   text-align: center;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: auto;
+  max-width: 1300px;
+}
+.cardContainer {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+}
+
+.gameContainer {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
 }
 
 .player {
@@ -18,7 +44,7 @@ canvas {
   border: solid 0.2em #707070;
 }
 
-.container {
+.arenaContainer {
   display: flex;
   flex-direction: row;
 }
@@ -93,7 +119,9 @@ canvas {
   margin-bottom: 10px;
 }
 
-.modal p {
+.modal-counter {
+  font-family: Facon;
+  color: white;
   font-size: 50px;
 }
 
@@ -157,27 +185,29 @@ canvas {
 }
 
 .indexContainer {
-  font-family: "Roboto", sans-serif;
   display: flex;
   flex: 1;
-  height: 100vh;
   flex-direction: column;
-  justify-content: space-between;
-  margin: auto;
-  max-width: 1400px;
+  justify-content: space-around;
+  align-items: center;
 }
 .logoContainer {
-  padding-top: 100px;
+  padding-top: 50px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.logoContainer a,
-.logoContainer span {
+.description {
   font-size: 16px;
-  font-style: italic;
   color: #c1c1c1;
+}
+.italic {
+  font-style: italic;
+}
+.paragraph {
+  font-size: 20px;
+  line-height: 1.5;
 }
 .logoContainer a:hover {
   color: white;
@@ -185,6 +215,7 @@ canvas {
 
 .menuContainer {
   display: flex;
+  align-self: stretch;
   justify-content: space-evenly;
 }
 .menu {
@@ -259,12 +290,16 @@ canvas {
 .footer a:hover {
   font-weight: bold;
 }
+.footer .selected {
+  color: white;
+  font-weight: bold;
+  font-style: italic;
+}
 
 .registerForm,
 .mypageForm {
-  width: 100vw;
-  height: 100vh;
   display: flex;
+  margin: auto;
   flex-direction: column;
   justify-content: center;
   align-items: center;

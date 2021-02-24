@@ -144,6 +144,11 @@ ws.on("connection", conn => {
       client.state[data.fragment][prop] = value;
 
       client.broadcast(data);
+    } else if (data.type === "replay-request") {
+
+      const session = getSession(data.id) || createSession(data.id);
+      client.state = data.state;
+      broadcastSession(session);
     }
   });
 

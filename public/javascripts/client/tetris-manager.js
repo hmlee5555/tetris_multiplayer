@@ -2,6 +2,7 @@ class TetrisManager{
     constructor(document) {
         this.document = document;
         this.template = document.getElementById('player-template');
+        this.container = document.querySelector('.gameContainer');
 
         this.instances = new Set;   // 현재 있는 tetris들 집합
                                     // array 대신 set로 정의하면 delete쉽게 사용가능
@@ -15,8 +16,8 @@ class TetrisManager{
         // 새 tetris 생성
         const tetris = new Tetris(element);
         this.instances.add(tetris); // array에서의 push와 동일.
-
-        this.document.body.appendChild(tetris.element); // html에 tetris 표시
+        // html에 tetris 표시
+        this.container.appendChild(tetris.element);
 
         return tetris; // 새로 생성된 tetris 반환
     }
@@ -24,7 +25,8 @@ class TetrisManager{
     // player 제거
     removePlayer(tetris){
         this.instances.delete(tetris);                  // instances 집합에서 tetris 제거
-        this.document.body.removeChild(tetris.element); // html에서 제거
+        // html에서 제거
+        this.container.removeChild(tetris.element);
     }
 
     // sort순서대로 tetris표시
@@ -34,7 +36,8 @@ class TetrisManager{
              * appendChild()가 절대 같은 child 만들지 X (이미 있는 child로 인식되면 새로운 위치로 옮김)
              * => 항상 마지막에 들어온 element가 마지막에 표시
              */
-            this.document.body.appendChild(tetris.element);
+
+            this.container.appendChild(tetris.element);
         });
     }
 }

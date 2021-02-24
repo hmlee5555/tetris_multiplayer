@@ -10,6 +10,27 @@
 </head>
 
 <body>
+<div class="container">
+
     {{{ body }}}
+
+    <footer class="footer">
+        <div class="footeritem">
+            <a href="/howto" title="HOW TO PLAY" {{#if howto}}class="selected"{{/if}}>HOW TO PLAY</a>
+        </div>
+        <div class="footeritem">
+            <a href="/about" title="ABOUT" {{#if about}}class="selected"{{/if}}>ABOUT</a>
+        </div>
+        {{#if session.token}}
+            <div class="footeritem">
+                <a href="/logout" title="LOGOUT">LOGOUT</a>
+            </div>
+        {{/if}}
+        <a href="/" style="margin-left: auto;">
+            <img src="/public/images/logo_footer.png" alt="Footer Logo">
+        </a>
+    </footer>
+
+</div>
 </body>
 </html>

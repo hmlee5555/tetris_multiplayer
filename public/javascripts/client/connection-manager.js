@@ -45,6 +45,17 @@ class ConnectionManager {
     }
   }
 
+  replayRequest() {
+    const sessionId = window.location.hash.split("#")[1]; // '#'이후로 오는거 다
+    const state = this.localTetris.serialize(); // join할 당시 tetris 상태.
+
+    this.send({
+      type: "replay-request",
+      id: sessionId,
+      state,
+    });
+  }
+
   // event listener들 생성
   watchEvents() {
     const local = this.localTetris;

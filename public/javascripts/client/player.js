@@ -85,6 +85,7 @@ class Player {
     this.events.emit("time", this.time);
     this.events.emit("speed", this.speed);
     this.events.emit("gameOver", this.gameOver);
+    this.events.emit("score", this.score);
   }
 
   reset() {
@@ -179,8 +180,8 @@ class Player {
       this.arena.merge(this);
       this.reset();
       this.score += this.arena.sweep();
-      this.tetris.updateScore(this.score); // 영상에서 실수인듯? 본인 score도 업뎃해줘야함!!
-      this.events.emit("score", this.score);
+      this.tetris.updateScore(this.score);
+      // this.events.emit("score", this.score); // doReset때 emit하도록(replay때문에)
       return;
     }
     this.events.emit("pos", this.pos);

@@ -54,10 +54,10 @@
             <img src="/public/images/logo.png" alt="Tetris Battle Logo" width="561px" height="235px">
         </a>
 
-        <span>A JavaScript-based Tetris Multiplayer Game.
+        <span class="description italic">A JavaScript-based Tetris Multiplayer Game.
             <br>
-            Original game code based off of <a
-                href="https://github.com/meth-meth-method/tetris-network-multiplayer">Meth Meth Method</a>
+            Original game code based off of <a class="description-italic"
+                                               href="https://github.com/meth-meth-method/tetris-network-multiplayer">Meth Meth Method</a>
         </span>
     </div>
 
@@ -93,26 +93,9 @@
     </div>
     <div>
         {{#if session.user}}
-        <h4 style="color: white">{{ session.user.name }} Logged In!</h4>
+        <span class="description-italic" >{{ session.user.name }} Logged In!</span>
         {{/if}}
     </div>
-
-    <footer class="footer">
-        <div class="footeritem">
-            <a href="/howto" title="HOW TO PLAY">HOW TO PLAY</a>
-        </div>
-        <div class="footeritem">
-            <a href="/about" title="ABOUT">ABOUT</a>
-        </div>
-        {{#if session.token}}
-        <div class="footeritem">
-            <a href="/logout" title="LOGOUT">LOGOUT</a>
-        </div>
-        {{/if}}
-        <a href="/" style="margin-left: auto;">
-            <img src="/public/images/logo_footer.png" alt="Footer Logo">
-        </a>
-    </footer>
 </div>
 
 <script src="/public/javascripts/index-page.js"></script>

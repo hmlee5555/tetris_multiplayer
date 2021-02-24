@@ -19,25 +19,23 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0e665b7-5583-403c-a0e2-4c6c4ea4c8c5" name="Default Changelist" comment="replay 추가 / 버그 수정">
-      <change afterPath="$PROJECT_DIR$/public/javascripts/update_info-page.js" afterDir="false" />
+    <list default="true" id="e0e665b7-5583-403c-a0e2-4c6c4ea4c8c5" name="Default Changelist" comment="추가 버그 수정&#10;&#10;- footer의 로고 클릭링크 오류 수정&#10;- 정보수정 submit 오류 후 새로고침해도 form 뜬 상태로 유지되도록 수정&#10;- 마이페이지 삭제, 정보수정 페이지와 합침 &#10;- 로그인 모달 에러문구 위치 수정">
+      <change afterPath="$PROJECT_DIR$/views/about.hbs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/bin/client.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/www" beforeDir="false" afterPath="$PROJECT_DIR$/bin/www" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/javascripts/client/connection-manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/javascripts/client/connection-manager.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/javascripts/client/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/javascripts/client/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/javascripts/client/player.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/javascripts/client/player.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/javascripts/client/tetris-manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/javascripts/client/tetris-manager.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/javascripts/client/tetris.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/javascripts/client/tetris.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/javascripts/index-page.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/javascripts/index-page.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/stylesheets/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/stylesheets/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/pages.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/pages.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/error.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/error.hbs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/game.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/game.hbs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/index.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/mypage.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/mypage.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/register.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/register.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layouts/layout.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/layout.hbs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/update_info.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/update_info.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -127,7 +125,8 @@
       <workItem from="1613197989283" duration="20250000" />
       <workItem from="1613278966972" duration="1084000" />
       <workItem from="1613548599094" duration="33400000" />
-      <workItem from="1613719373586" duration="3200000" />
+      <workItem from="1613719373586" duration="4431000" />
+      <workItem from="1614077692233" duration="25010000" />
     </task>
     <task id="LOCAL-00001" summary="Single Player: next, saved">
       <created>1609760067118</created>
@@ -199,7 +198,21 @@
       <option name="project" value="LOCAL" />
       <updated>1613226999167</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="replay 추가 / 버그 수정">
+      <created>1613734742152</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1613734742152</updated>
+    </task>
+    <task id="LOCAL-00012" summary="추가 버그 수정&#10;&#10;- footer의 로고 클릭링크 오류 수정&#10;- 정보수정 submit 오류 후 새로고침해도 form 뜬 상태로 유지되도록 수정&#10;- 마이페이지 삭제, 정보수정 페이지와 합침 &#10;- 로그인 모달 에러문구 위치 수정">
+      <created>1613735866582</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1613735866582</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -238,7 +251,8 @@
     <MESSAGE value="로그인 모달 추가" />
     <MESSAGE value="Create/Join Session" />
     <MESSAGE value="replay 추가 / 버그 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="replay 추가 / 버그 수정" />
+    <MESSAGE value="추가 버그 수정&#10;&#10;- footer의 로고 클릭링크 오류 수정&#10;- 정보수정 submit 오류 후 새로고침해도 form 뜬 상태로 유지되도록 수정&#10;- 마이페이지 삭제, 정보수정 페이지와 합침 &#10;- 로그인 모달 에러문구 위치 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="추가 버그 수정&#10;&#10;- footer의 로고 클릭링크 오류 수정&#10;- 정보수정 submit 오류 후 새로고침해도 form 뜬 상태로 유지되도록 수정&#10;- 마이페이지 삭제, 정보수정 페이지와 합침 &#10;- 로그인 모달 에러문구 위치 수정" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1644" y="549" key="#Notifications" timestamp="1610872055182">
@@ -287,10 +301,11 @@
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
     <state x="1729" y="436" key="VCS.ChangeListViewerDialog/2560.242.1680.1027/0.23.2560.1417@0.23.2560.1417" timestamp="1613221710767" />
-    <state x="1486" y="471" key="Vcs.Push.Dialog.v2" timestamp="1613280290811">
-      <screen x="0" y="23" width="2560" height="1417" />
+    <state x="1486" y="472" key="Vcs.Push.Dialog.v2" timestamp="1613735894200">
+      <screen x="0" y="25" width="2560" height="1415" />
     </state>
     <state x="1486" y="471" key="Vcs.Push.Dialog.v2/2560.242.1680.1027/0.23.2560.1417@0.23.2560.1417" timestamp="1613280290811" />
+    <state x="1486" y="472" key="Vcs.Push.Dialog.v2/2560.244.1680.1025/0.25.2560.1415@0.25.2560.1415" timestamp="1613735894200" />
     <state x="869" y="125" width="1591" height="1215" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1613730245819">
       <screen x="0" y="25" width="2560" height="1415" />
     </state>
@@ -304,11 +319,11 @@
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
     <state x="1568" y="354" width="768" height="735" key="find.popup/2560.242.1680.1027/0.23.2560.1417@0.23.2560.1417" timestamp="1609932020445" />
-    <state x="1551" y="348" key="run.anything.popup" timestamp="1613733301152">
+    <state x="1551" y="348" key="run.anything.popup" timestamp="1614154436722">
       <screen x="0" y="25" width="2560" height="1415" />
     </state>
     <state x="1551" y="346" key="run.anything.popup/2560.242.1680.1027/0.23.2560.1417@0.23.2560.1417" timestamp="1613224253402" />
-    <state x="1551" y="348" key="run.anything.popup/2560.244.1680.1025/0.25.2560.1415@0.25.2560.1415" timestamp="1613733301152" />
+    <state x="1551" y="348" key="run.anything.popup/2560.244.1680.1025/0.25.2560.1415@0.25.2560.1415" timestamp="1614154436722" />
     <state x="1567" y="343" width="670" height="676" key="search.everywhere.popup" timestamp="1610453157801">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>

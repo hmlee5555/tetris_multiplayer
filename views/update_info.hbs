@@ -1,61 +1,62 @@
-<div class="mypageForm">
-    <div class="card">
-        <div class="modal-title">
-            MY PAGE
-        </div>
-        <div class="card-body">
-            <div class="form-group">
-                <label for="name" >Nickname</label>
-                <input disabled type="text" class="form-input" id="name" name="name" value="{{session.user.name}}">
+<div class="cardContainer">
+    <div class="mypageForm">
+        <div class="card">
+            <div class="modal-title">
+                MY PAGE
             </div>
-            <div class="form-group">
-                <label for="email" >Email</label>
-                <input disabled type="text" class="form-input" id="email" name="email" value="{{session.user.email}}">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="name" >Nickname</label>
+                    <input disabled type="text" class="form-input" id="name" name="name" value="{{session.user.name}}">
+                </div>
+                <div class="form-group">
+                    <label for="email" >Email</label>
+                    <input disabled type="text" class="form-input" id="email" name="email" value="{{session.user.email}}">
+                </div>
             </div>
-        </div>
-        <br>
-        <div class="card-footer">
-            <button type="button" class="btn btn-secondary" onclick="toggleForm()">Change Info</button>
-            <button type="button" class="btn btn-secondary" onclick="window.location.href='/'">Back to Home</button>
+            <br>
+            <div class="card-footer">
+                <button type="button" class="btn btn-secondary" onclick="toggleForm()">Change Info</button>
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='/'">Back to Home</button>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="mypageForm" id="updateForm" style="display:{{#if message}}flex{{else}}none{{/if}}">
-    <div class="verticalLine"></div>
-    <div class="card">
-        <div class="modal-title">
-            Update Info
+    <div class="mypageForm" id="updateForm" style="display:{{#if message}}flex{{else}}none{{/if}}">
+        <div class="verticalLine"></div>
+        <div class="card">
+            <div class="modal-title">
+                Update Info
+            </div>
+            <div class="card-body">
+                <form action="/auth/update" method="POST">
+                    <div class="form-group">
+                        <label for="name">Nickname</label>
+                        <input type="text" class="form-input" id="name" name="name" value='{{session.user.name}}'>
+                    </div>
+                    <div class="form-group" style="display:none">
+                        <label for="email">Email</label>
+                        <input readonly type="email" class="form-input" id="email" name="email"
+                               value='{{session.user.email}}'>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-input" id="password" name="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="passwordConfirm">Confirm Password</label>
+                        <input type="password" class="form-input" id="passwordConfirm" name="passwordConfirm">
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" onclick="toggleForm()">Cancel</button>
+                </form>
+            </div>
         </div>
-        <div class="card-body">
-            <form action="/auth/update" method="POST">
-                <div class="form-group">
-                    <label for="name">Nickname</label>
-                    <input type="text" class="form-input" id="name" name="name" value='{{session.user.name}}'>
-                </div>
-                <div class="form-group" style="display:none">
-                    <label for="email">Email</label>
-                    <input readonly type="email" class="form-input" id="email" name="email"
-                        value='{{session.user.email}}'>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-input" id="password" name="password">
-                </div>
-                <div class="form-group">
-                    <label for="passwordConfirm">Confirm Password</label>
-                    <input type="password" class="form-input" id="passwordConfirm" name="passwordConfirm">
-                </div>
-                <br>
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="button" class="btn btn-secondary" onclick="toggleForm()">Cancel</button>
-
-            </form>
-        </div>
+        {{#if message}}
+            <h4 class="alert alert-danger mt-4">{{ message }}</h4>
+        {{/if}}
     </div>
-    {{#if message}}
-    <h4 class="alert alert-danger mt-4">{{ message }}</h4>
-    {{/if}}
 </div>
 
 <script src="/public/javascripts/update_info-page.js"></script>
