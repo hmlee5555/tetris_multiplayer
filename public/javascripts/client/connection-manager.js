@@ -5,7 +5,6 @@ class ConnectionManager {
 
     this.tetrisManager = tetrisManager;
     this.localTetris = [...tetrisManager.instances][0];
-    this.localReady = false;
   }
   connect(address) {
     this.conn = new WebSocket(address);
@@ -47,15 +46,12 @@ class ConnectionManager {
   }
 
   ready(readyState) {
-    if (this.localReady !== readyState){
-      const sessionId = window.location.hash.split("#")[1]; // '#'이후로 오는거 다
-      this.localReady = readyState;
-      this.send({
-        type: "ready",
-        readyState: this.localReady,
-        id: sessionId,
-      });
-    }
+    const sessionId = window.location.hash.split("#")[1]; // '#'이후로 오는거 다
+    this.send({
+      type: "ready",
+      readyState: readyState,
+      id: sessionId,
+    });
   }
 
   // event listener들 생성

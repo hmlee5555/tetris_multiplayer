@@ -19,17 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0e665b7-5583-403c-a0e2-4c6c4ea4c8c5" name="Default Changelist" comment="Replay 서버연동 등&#10;&#10; - footer 고정 (layout.hbs로 이동)&#10; - 에러페이지 수정&#10; - 게임 대기중 모달 추가">
+    <list default="true" id="e0e665b7-5583-403c-a0e2-4c6c4ea4c8c5" name="Default Changelist" comment="Ready 기능 &#10;&#10;- connection-manager.js 및 www에 새로운 매시지 체계 추가&#10;- 혼자서 할 경우 play solo 버튼으로 혼자 레디 후 시작 가능&#10;- replay 신청 시 레디와 동일한 방식으로 상대 레디 기다림&#10;- 게임 진행중일 경우 하단 모달식으로 새 게임 시작 레디 상태 받음&#10;- R키로 레디 설정/해제 가능 -&gt; 게임 진행 중 레디 받기 편함">
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/bin/client.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/www" beforeDir="false" afterPath="$PROJECT_DIR$/bin/www" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/javascripts/client/connection-manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/javascripts/client/connection-manager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/javascripts/client/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/javascripts/client/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/javascripts/client/tetris.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/javascripts/client/tetris.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/stylesheets/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/stylesheets/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/game.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/game.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/update_info.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/update_info.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +114,7 @@
       <workItem from="1613719373586" duration="4431000" />
       <workItem from="1614077692233" duration="25010000" />
       <workItem from="1614166504005" duration="384000" />
-      <workItem from="1614422330890" duration="20673000" />
+      <workItem from="1614422330890" duration="21440000" />
     </task>
     <task id="LOCAL-00001" summary="Single Player: next, saved">
       <created>1609760067118</created>
@@ -214,7 +207,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614166708178</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Ready 기능 &#10;&#10;- connection-manager.js 및 www에 새로운 매시지 체계 추가&#10;- 혼자서 할 경우 play solo 버튼으로 혼자 레디 후 시작 가능&#10;- replay 신청 시 레디와 동일한 방식으로 상대 레디 기다림&#10;- 게임 진행중일 경우 하단 모달식으로 새 게임 시작 레디 상태 받음&#10;- R키로 레디 설정/해제 가능 -&gt; 게임 진행 중 레디 받기 편함">
+      <created>1614446612810</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1614446612811</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,7 +255,8 @@
     <MESSAGE value="replay 추가 / 버그 수정" />
     <MESSAGE value="추가 버그 수정&#10;&#10;- footer의 로고 클릭링크 오류 수정&#10;- 정보수정 submit 오류 후 새로고침해도 form 뜬 상태로 유지되도록 수정&#10;- 마이페이지 삭제, 정보수정 페이지와 합침 &#10;- 로그인 모달 에러문구 위치 수정" />
     <MESSAGE value="Replay 서버연동 등&#10;&#10; - footer 고정 (layout.hbs로 이동)&#10; - 에러페이지 수정&#10; - 게임 대기중 모달 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="Replay 서버연동 등&#10;&#10; - footer 고정 (layout.hbs로 이동)&#10; - 에러페이지 수정&#10; - 게임 대기중 모달 추가" />
+    <MESSAGE value="Ready 기능 &#10;&#10;- connection-manager.js 및 www에 새로운 매시지 체계 추가&#10;- 혼자서 할 경우 play solo 버튼으로 혼자 레디 후 시작 가능&#10;- replay 신청 시 레디와 동일한 방식으로 상대 레디 기다림&#10;- 게임 진행중일 경우 하단 모달식으로 새 게임 시작 레디 상태 받음&#10;- R키로 레디 설정/해제 가능 -&gt; 게임 진행 중 레디 받기 편함" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ready 기능 &#10;&#10;- connection-manager.js 및 www에 새로운 매시지 체계 추가&#10;- 혼자서 할 경우 play solo 버튼으로 혼자 레디 후 시작 가능&#10;- replay 신청 시 레디와 동일한 방식으로 상대 레디 기다림&#10;- 게임 진행중일 경우 하단 모달식으로 새 게임 시작 레디 상태 받음&#10;- R키로 레디 설정/해제 가능 -&gt; 게임 진행 중 레디 받기 편함" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1644" y="549" key="#Notifications" timestamp="1610872055182">
@@ -304,11 +305,11 @@
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
     <state x="1729" y="436" key="VCS.ChangeListViewerDialog/2560.242.1680.1027/0.23.2560.1417@0.23.2560.1417" timestamp="1613221710767" />
-    <state x="1486" y="472" key="Vcs.Push.Dialog.v2" timestamp="1614166855088">
+    <state x="1486" y="472" key="Vcs.Push.Dialog.v2" timestamp="1614446632773">
       <screen x="0" y="25" width="2560" height="1415" />
     </state>
     <state x="1486" y="471" key="Vcs.Push.Dialog.v2/2560.242.1680.1027/0.23.2560.1417@0.23.2560.1417" timestamp="1613280290811" />
-    <state x="1486" y="472" key="Vcs.Push.Dialog.v2/2560.244.1680.1025/0.25.2560.1415@0.25.2560.1415" timestamp="1614166855088" />
+    <state x="1486" y="472" key="Vcs.Push.Dialog.v2/2560.244.1680.1025/0.25.2560.1415@0.25.2560.1415" timestamp="1614446632773" />
     <state x="869" y="125" width="1591" height="1215" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1613730245819">
       <screen x="0" y="25" width="2560" height="1415" />
     </state>
@@ -322,11 +323,11 @@
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
     <state x="1568" y="354" width="768" height="735" key="find.popup/2560.242.1680.1027/0.23.2560.1417@0.23.2560.1417" timestamp="1609932020445" />
-    <state x="1551" y="348" key="run.anything.popup" timestamp="1614444507317">
+    <state x="1551" y="348" key="run.anything.popup" timestamp="1614446618427">
       <screen x="0" y="25" width="2560" height="1415" />
     </state>
     <state x="1551" y="346" key="run.anything.popup/2560.242.1680.1027/0.23.2560.1417@0.23.2560.1417" timestamp="1613224253402" />
-    <state x="1551" y="348" key="run.anything.popup/2560.244.1680.1025/0.25.2560.1415@0.25.2560.1415" timestamp="1614444507317" />
+    <state x="1551" y="348" key="run.anything.popup/2560.244.1680.1025/0.25.2560.1415@0.25.2560.1415" timestamp="1614446618427" />
     <state x="1567" y="343" width="670" height="676" key="search.everywhere.popup" timestamp="1610453157801">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
