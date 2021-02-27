@@ -1,11 +1,14 @@
-<div class="modal-wrapper" id="game-start-modal" >
+<div class="modal-wrapper" id="game-start-modal">
     <div class="modal">
         <div>
             <p class="modal-title">WAITING FOR PLAYERS...</p>
             <p class="modal-counter"></p>
         </div>
         <div class="modal-footer" >
-            <button class="btn btn-secondary" onclick="window.location.href='/'">Cancel</button>
+            <button class="btn btn-primary" id="mainreadyBtn" style="display: none">Ready(R)</button>
+            <button class="btn btn-pressed" id="mainunreadyBtn" style="display: none">Cancel(R)</button>
+            <button class="btn btn-secondary" id="mainsoloBtn">Play Solo</button>
+            <button class="btn btn-secondary" id="maincancelBtn" onclick="window.location.href='/'">Back to Home</button>
         </div>
     </div>
 </div>
@@ -24,6 +27,14 @@
 
 <div class="gameContainer">
     <!--GAME GOES HERE-->
+</div>
+
+<div class="messageContainer">
+    <span id="message" style="display: inline-flex; align-items: center">
+    <!--        메시지-->
+    </span>
+    <button class="btn btn-primary" id="readyBtn" style="margin: 0px 0px 0px 10px;">Ready(R)</button>
+    <button class="btn btn-pressed" id="unreadyBtn" style="display:none; margin: 0px 0px 0px 10px;">Cancel Ready(R)</button>
 </div>
 
 <!--template으로 정의하므로 import하기 전까지는 browser에 의해 접근 불가능 -->

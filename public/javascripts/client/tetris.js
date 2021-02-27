@@ -175,6 +175,12 @@ class Tetris {
     this.playerReset(); // 게임 초기화
     this.draw();        // 3초 준비하면서 첫 블록 보이도록
 
+    // 하단 메시지 창 지우기
+    document.querySelector("#unreadyBtn").style.display = "none";
+    document.querySelector(".messageContainer").style.display = "none";
+    // 메인모달 버튼 상태 초기화
+    document.querySelector("#mainunreadyBtn").style.display = "none";
+
     // 게임오버 창 지우기
     document.querySelector("#game-over-modal").style.display = "none";
     // 게임 시작까지 3초 걸린다는 창 띄우기
@@ -212,10 +218,6 @@ class Tetris {
     document.querySelector("#game-over-modal p").innerText = "You LOSE!";
     // time, speed 초기화는 replay 버튼 누를 시 함
   }
-
-  // stop() {
-  //   cancelAnimationFrame(this.reqId);
-  // }
 
   // 현재 상태를 한번에 보여주는 object 반환
   serialize() {

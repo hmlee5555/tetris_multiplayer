@@ -31,6 +31,17 @@ body {
   flex-direction: row;
   margin: auto;
 }
+.messageContainer {
+  display: none;
+  align-self: center;
+  padding: 10px 15px 10px 20px;
+  margin: 10px;
+
+  background: #3b3b48;
+  border-radius: 10px;
+  color: #c1c1c1;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 
 .player {
   flex: 1 1 auto;
@@ -172,9 +183,18 @@ canvas {
   background: #3b3b48;
   text-decoration: none;
 }
+.btn-pressed {
+  color: #7600ff;
+  background: white;
+  box-shadow: inset 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+}
 .btn:hover {
   background: white;
   color: #7600ff;
+}
+.btn-pressed:hover {
+  background: #7600ff;
+  color: white;
 }
 
 /*index.html*/
@@ -208,6 +228,9 @@ canvas {
 .paragraph {
   font-size: 20px;
   line-height: 1.5;
+}
+.logoContainer a {
+  color: #c1c1c1;
 }
 .logoContainer a:hover {
   color: white;
@@ -261,7 +284,7 @@ canvas {
 
 .footer {
   height: 50px;
-  padding: 30px;
+  padding: 10px 30px 20px 30px;
 
   display: flex;
   align-items: center;

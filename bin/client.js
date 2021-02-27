@@ -5,6 +5,7 @@ class Client{
         this.session = null;
 
         this.state = null;
+        this.ready = false; // 레디상태
     }
 
     // 세션의 모든 client에게 send함

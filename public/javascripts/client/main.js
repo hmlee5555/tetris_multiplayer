@@ -9,16 +9,85 @@ localTetris.element.classList.add("local"); // css에서 내 tetris 테두리 �
 const connectionManager = new ConnectionManager(tetrisManager);
 connectionManager.connect("ws://localhost:3000");
 
+// REPLAY 버튼
 document.querySelector("#replayBtn").addEventListener('click', () => {
-
-  connectionManager.replayRequest();
-
-  // if (connectionManager.peers.size <= 1) {
-  //   // 플레이어 부족
-  // }else{
-  //
-  // }
+  document.querySelector("#game-over-modal").style.display = "none";  // 게임오버 창 지우기
+  document.querySelector("#game-start-modal .modal-counter").innerText = "";  // 레디 창 띄우기
+  document.querySelector("#game-start-modal").style.display = "flex";
+  // 상대 플레이어 존재할 때만 레디상태 보냄
+  if (connectionManager.peers.size !== 0) {
+    toggleReady('main', true);
+  }
 });
+
+// PLAY SOLO 버튼
+// 혼자 있는데 레디 보내므로 전체 레디상태 됨 -> 게임 시작
+document.querySelector('#mainsoloBtn').addEventListener('click', () => {
+  toggleReady('main', true);
+});
+
+// READY 버튼들
+const readyBtn = document.querySelector("#readyBtn");
+const unreadyBtn = document.querySelector("#unreadyBtn");
+const mainreadyBtn = document.querySelector("#mainreadyBtn");
+const mainunreadyBtn = document.querySelector("#mainunreadyBtn");
+mainreadyBtn.addEventListener('click', () => {
+  toggleReady('main', true);
+});
+mainunreadyBtn.addEventListener('click', () => {
+  toggleReady('main', false);
+});
+readyBtn.addEventListener('click', () => {
+  toggleReady('message', true);
+});
+unreadyBtn.addEventListener('click', () => {
+  toggleReady('message', false);
+});
+// 키보드로도 레디 토글할 수 있도록
+document.addEventListener("keydown", event => {
+  if (event.keyCode === 82){  // 'R'키 누르면 작동
+    // ready버튼 보일때만 작동하도록
+    if (document.querySelector("#game-start-modal").style.display !== "none" && document.querySelector("#game-start-modal .modal-footer").style.display !== "none"){
+      if (mainreadyBtn.style.display !== 'none'){
+        toggleReady('main', true);
+      } else if (mainunreadyBtn.style.display !== 'none'){
+        toggleReady('main', false);
+      }
+    }else if (document.querySelector(".messageContainer").style.display !== "none"){
+      if (readyBtn.style.display !== 'none'){
+        toggleReady('message', true);
+      } else if (unreadyBtn.style.display !== 'none'){
+        toggleReady('message', false);
+      }
+    }
+  }
+});
+
+// 레디 설정/해제 :       btnLocation: 어디에 있는 버튼인지(메인모달 or 하단 메시지모달)
+//                    readyState: 레디 설정/해제
+function toggleReady(btnLocation, readyState){
+  if (btnLocation === 'main'){  // 메인모달
+    if (readyState){
+      mainunreadyBtn.style.display = "inline";
+      mainreadyBtn.style.display = "none";
+    }else{
+      mainreadyBtn.style.display = "inline";
+      mainunreadyBtn.style.display = "none";
+    }
+  }else{
+    if (readyState){  // 하단 메시지모달 (게임 진행 중 모달)
+      document.querySelector("#message").innerHTML = "Waiting for other players to get ready...";
+      unreadyBtn.style.display = "block";
+      readyBtn.style.display = "none";
+    }else{
+      document.querySelector("#message").innerHTML = "New player has entered the session. Restart the game?";
+      readyBtn.style.display = "block";
+      unreadyBtn.style.display = "none";
+    }
+  }
+  connectionManager.ready(readyState);  // 레디상태 서버로 전송
+}
+
 
 const keyListener = event => {
   [

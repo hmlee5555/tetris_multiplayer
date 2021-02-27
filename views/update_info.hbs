@@ -31,7 +31,7 @@
             <div class="card-body">
                 <form action="/auth/update" method="POST">
                     <div class="form-group">
-                        <label for="name">Nickname</label>
+                        <label for="name">New Nickname</label>
                         <input type="text" class="form-input" id="name" name="name" value='{{session.user.name}}'>
                     </div>
                     <div class="form-group" style="display:none">
@@ -40,11 +40,11 @@
                                value='{{session.user.email}}'>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password</label>
+                        <label for="password">New Password</label>
                         <input type="password" class="form-input" id="password" name="password">
                     </div>
                     <div class="form-group">
-                        <label for="passwordConfirm">Confirm Password</label>
+                        <label for="passwordConfirm">Confirm New Password</label>
                         <input type="password" class="form-input" id="passwordConfirm" name="passwordConfirm">
                     </div>
                     <br>

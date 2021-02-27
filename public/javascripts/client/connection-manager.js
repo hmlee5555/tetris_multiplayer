@@ -5,6 +5,7 @@ class ConnectionManager {
 
     this.tetrisManager = tetrisManager;
     this.localTetris = [...tetrisManager.instances][0];
+    this.localReady = false;
   }
   connect(address) {
     this.conn = new WebSocket(address);
@@ -45,15 +46,16 @@ class ConnectionManager {
     }
   }
 
-  replayRequest() {
-    const sessionId = window.location.hash.split("#")[1]; // '#'이후로 오는거 다
-    const state = this.localTetris.serialize(); // join할 당시 tetris 상태.
-
-    this.send({
-      type: "replay-request",
-      id: sessionId,
-      state,
-    });
+  ready(readyState) {
+    if (this.localReady !== readyState){
+      const sessionId = window.location.hash.split("#")[1]; // '#'이후로 오는거 다
+      this.localReady = readyState;
+      this.send({
+        type: "ready",
+        readyState: this.localReady,
+        id: sessionId,
+      });
+    }
   }
 
   // event listener들 생성
@@ -159,16 +161,42 @@ class ConnectionManager {
       // broadcast받음 -> peer리스트 업뎃
     } else if (data.type === "session-broadcast") {
       window.location.hash = data.session_id; // 참가한 세션의 id -> URL 끝에 hash와 함께 붙임
-      this.updateManager(data.peers); // msg로 받은 peer list 바탕으로 업데이트
 
-      /*** 게임 도중 인원수 바뀔 경우 하던 게임 중단 및 초기화 후 다시 시작
-       * 나중에 더 elegant한 방법으로 바꿔야할듯?
-       * ***/
-      this.localTetris.stopGame();  // 하던 게임 중단 및 초기화
-      this.localTetris.startGame(); // 게임 시작
+      // 플레이어 수
+      const newNum = data.peers.clients.length; // 바뀐 플레이어 수
+      const currentNum = this.peers.size + 1;   // 현재 플레이어 수: connectionManager에서는 상대만 셈 => 나까지 +1해줘야 전체 플레이어 수
+
+      // 현재 게임 진행중일때만 아래 메시지창 띄움(게임 도중 난입 시에만)
+      // 게임 진행중일 때는 timerID 존재, 아니면 null
+      if(this.localTetris.player.timerID){
+        if(currentNum > newNum){  // 나갔을 때
+          document.querySelector("#readyBtn").style.display = "none";
+          document.querySelector(".messageContainer").style.display = "flex";
+          document.querySelector("#message").innerHTML = "Player left the Session";
+        }else if(currentNum < newNum){ //들어왔을 때
+          document.querySelector("#readyBtn").style.display = "inline";
+          document.querySelector(".messageContainer").style.display = "flex";
+          document.querySelector("#message").innerHTML = "New player has entered the session. Start the game?";
+        }
+      } // 게임 첫 시작시
+      if (newNum === 1){ // 세션에 나 혼자 남음
+        this.ready(false); // 레디 상태 해제
+        document.querySelector('#mainsoloBtn').style.display = "inline";  // PLAY SOLO 버튼 표시
+        document.querySelector("#mainreadyBtn").style.display = "none";
+        document.querySelector('#mainunreadyBtn').style.display = "none";
+      }else{
+        document.querySelector('#mainsoloBtn').style.display = "none";    // PLAY SOLO 버튼 숨김
+        document.querySelector("#mainreadyBtn").style.display = "inline";
+      }
+
+      this.updateManager(data.peers); // msg로 받은 peer list 바탕으로 업데이트
 
     } else if (data.type === "state-update") {
       this.updatePeer(data.clientId, data.fragment, data.state);
+    } else if (data.type === "game-start") {
+
+      this.localTetris.stopGame();  // 하던 게임 중단 및 초기화
+      this.localTetris.startGame(); // 게임 시작
     }
   }
 

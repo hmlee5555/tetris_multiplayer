@@ -99,6 +99,15 @@ function broadcastSession(session) {
     });
   });
 }
+// 게임 시작 신호 broadcast
+function broadcastGameStart(session) {
+  const clients = [...session.clients];
+  clients.forEach(client => {
+    client.send({
+      type: "game-start",
+    });
+  });
+}
 
 ws.on("connection", conn => {
   // server.on이 아니라 ws.on임! 주의
@@ -144,11 +153,33 @@ ws.on("connection", conn => {
       client.state[data.fragment][prop] = value;
 
       client.broadcast(data);
-    } else if (data.type === "replay-request") {
+    }else if (data.type === "ready") {
+      client.ready = data.readyState;
 
-      const session = getSession(data.id) || createSession(data.id);
-      client.state = data.state;
-      broadcastSession(session);
+      // 모두 레디했는지 체크
+      if(data.readyState){ // readyState가 false일 경우 어차피 다 레디 아니므로 체크필요X
+        const session = getSession(data.id);
+        if (!session){
+          throw new Error(`Error while ready: Session ${data.id} does not exist`);
+        }
+        // 모두 레디했는지 체크
+        let ALLPLAYERSREADY = true;
+        [...session.clients].forEach((cli) => {
+          if(!cli.ready){
+            ALLPLAYERSREADY = false;
+          }
+        });
+
+        if (ALLPLAYERSREADY){
+          // 게임 시작
+          console.log('All players ready! Starting game...');
+          broadcastGameStart(session);
+          // 모든 플레이어 레디상태 false로 초기화
+          [...session.clients].forEach((cli) => {
+            cli.ready = false;
+          });
+        }
+      }
     }
   });
 
