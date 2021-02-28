@@ -122,12 +122,13 @@ const keyListener = event => {
       // DROP시 keydown에는 drop속도 빠르게 바꾸고, keyup시에는 drop속도 원래대로 복원
       if (event.type === "keydown") {
         if (player.dropInterval !== player.DROP_FAST) {
+          player.speedSave = player.dropInterval;
           //player.drop(); // 이거 없어도 잘 돌아가는데?
           player.dropInterval = player.DROP_FAST;
         }
       } else {
         // keyup일때
-        player.dropInterval = player.DROP_SLOW;
+        player.dropInterval = player.speedSave;
       }
     }
   });

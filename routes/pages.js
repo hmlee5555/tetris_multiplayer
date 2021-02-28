@@ -72,8 +72,6 @@ router.get('/about', function(req, res) {
     });
 });
 
-//router.post('/', authController.login);
-
 router.get('/logout', (req, res)=>{
     //res.clearCookie('jwt');
     res.clearCookie('sid');

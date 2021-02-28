@@ -6,7 +6,7 @@ class Player {
     this.events = new Events();
 
     this.DROP_SLOW = 1000;
-    this.DROP_FAST = 100; // 50으로 하니까 너무 짧아서 한번만 눌러도 두칸씩 이동;; 좀 늘림
+    this.DROP_FAST = 99; // 50으로 하니까 너무 짧아서 한번만 눌러도 두칸씩 이동;; 좀 늘림
     this.dropCounter = 0;
     this.dropInterval = this.DROP_SLOW;
 
@@ -21,6 +21,7 @@ class Player {
     this.timerID = null; // 게임 타이머 setInterval 아이디
     this.time = 0;
     this.speed = 0;
+    this.speedSave = this.DROP_SLOW;
 
     this.gameOver = 0; // gameover
 
@@ -30,19 +31,21 @@ class Player {
   // 게임 시간 타이머
   timer() {
     /***
-     * 1. 아래 방향키 누를때마다 interval이 DROP_SLOW로 리셋돼서 사실상 스피드 올라가지 X
-     * 2. 플레이하다가 다른 플레이어 들어올때마다 tetris.run()이 실행되는지 timer가 두배로 빨라짐
+     * 1. 해결//아래 방향키 누를때마다 interval이 DROP_SLOW로 리셋돼서 사실상 스피드 올라가지 X
+     * 2. 해결?//플레이하다가 다른 플레이어 들어올때마다 tetris.run()이 실행되는지 timer가 두배로 빨라짐
      *    -> 플레이 도중에 다른 플레이어 들어올때 고려해야함.
      */
     this.timerID = setInterval(() => {
       this.time += 1;
       // time 조정
       if (this.dropInterval > 50) {
-        if (this.time % 10 === 0) {
-          this.dropInterval -= 5;
-          if (this.time % 20 === 0) {
-            this.speed++;
-            this.dropInterval -= 40;
+        if (this.dropInterval != this.DROP_FAST){
+          if (this.time % 10 === 0) {
+            this.dropInterval -= 5;
+            if (this.time % 20 === 0) {
+              this.speed++;
+              this.dropInterval -= 40;
+            }
           }
         }
       } else {
