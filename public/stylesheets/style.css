@@ -144,6 +144,39 @@ canvas {
   width: 100%;
   margin-top: 14px;
 }
+.form-group h3 {
+  margin-top: 0;
+  font-size: 1.1em;
+}
+.form-group h4 {
+  margin: 5;
+}
+.form-group h4 span {
+  font-family: Facon;
+}
+.about div {
+  margin: 10px;
+  width: inherit;
+}
+.about h4 {
+  margin: 0;
+  width: inherit;
+}
+.about span {
+  font-size: 14px;
+}
+.about a {
+  color: #c1c1c1;
+}
+.about a:hover {
+  color: #fff;
+}
+.form-group hr {
+  margin-top: 0;
+  width: inherit;
+  background-color: #fff;
+  border: solid 1px #fff;
+}
 .btn-group {
   flex-direction: row;
   justify-content: flex-start;
@@ -292,14 +325,17 @@ canvas {
 .footeritem {
   margin-right: 35px;
 }
-.footer a {
+.footer button {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-weight: lighter;
   text-decoration: none;
   color: #c1c1c1;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
-.footer a::before {
+.footer button::before {
   /*bold로 바뀔때 shifting하는거 방지: */
   /*before pseudo-element로 bold 공간 reserve*/
   /*<a> 태그의 title property 이용 */
@@ -310,7 +346,7 @@ canvas {
   overflow: hidden;
   visibility: hidden;
 }
-.footer a:hover {
+.footer button:hover {
   font-weight: bold;
 }
 .footer .selected {

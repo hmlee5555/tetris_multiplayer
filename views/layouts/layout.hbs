@@ -1,36 +1,87 @@
 <!doctype html>
 
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
 
     <title>{{ title }}</title>
     <link rel="stylesheet" href="/public/stylesheets/style.css">
-
 </head>
 
 <body>
-<div class="container">
-
-    {{{ body }}}
-
-    <footer class="footer">
-        <div class="footeritem">
-            <a href="/howto" title="HOW TO PLAY" {{#if howto}}class="selected"{{/if}}>HOW TO PLAY</a>
-        </div>
-        <div class="footeritem">
-            <a href="/about" title="ABOUT" {{#if about}}class="selected"{{/if}}>ABOUT</a>
-        </div>
-        {{#if session.token}}
-            <div class="footeritem">
-                <a href="/logout" title="LOGOUT">LOGOUT</a>
+    <div class="modal-wrapper" id="about-modal" style="display: none">
+        <div class="overlay"></div>
+        <div class="modal">
+            <div class="modal-title">About</div>
+            <div class="form-group about">
+                <h4>This app was built by </h4>
+                <div>@hmlee5555<br />@daegon0130<br />@qwert92a</div><br />
+                <hr />
+                <span>
+                    Original game code based off of Original game code based off of <a
+                        href="https://github.com/meth-meth-method/tetris-network-multiplayer">Meth Meth Method</a>
+                </span>
             </div>
-        {{/if}}
-        <a href="/" style="margin-left: auto;">
-            <img src="/public/images/logo_footer.png" alt="Footer Logo">
-        </a>
-    </footer>
+            <div class="form-group" style='align-items: center; display: inline-block;'>
+                <button class="btn btn-secondary"
+                    onclick="document.getElementById('about-modal').style.display = 'none'"
+                    style="padding: 5px;">Close</button>
+                <button class="btn btn-secondary" onclick="window.location.href='/about'" style="padding: 5px;">More
+                    info</button>
+                <!--                <button class="btn btn-secondary" type="submit">Create</button>-->
+            </div>
+        </div>
+    </div>
 
-</div>
+    <!--  how to play 모달  -->
+    <div class="modal-wrapper" id="howto-modal" style="display: none">
+        <div class="overlay"></div>
+        <div class="modal">
+            <div class="modal-title">How to Play</div>
+            <div class="form-group">
+                <h3>You can enjoy Tetris with others! Battle! Show your skills</h3>
+                <hr />
+                <h4>Click the <img src="/public/images/quickmatch.svg" alt="Match" width="17px"
+                        height="17px"><span>Quick
+                        match</span></h4>
+                <span>You can battle 1 vs 1 with random player.</span><br />
+                <hr />
+                <h4>Click the &nbsp;<img src="/public/images/session.svg" alt="Session" width="17px" height="17px">
+                    <span style="font-family: 'Roboto', sans-serif; font-weight: 100">Create/Join session</span>
+                </h4>
+                <span>You can create or join session with session ID.</span><br />
+                <hr />
+            </div>
+            <div class="form-group" style=' align-items: center'>
+                <button class="btn btn-secondary"
+                    onclick="document.getElementById('howto-modal').style.display = 'none'"
+                    style="padding: 5px;">Close</button>
+                <!--                <button class="btn btn-secondary" type="submit">Create</button>-->
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <!--  about 모달  -->
+        {{{ body }}}
+        <footer class="footer">
+            <div class="footeritem" id="howto">
+                <button title="HOW TO PLAY">HOW TO PLAY</button>
+            </div>
+            <div class="footeritem" id="about">
+                <button title="ABOUT" {{#if about}}class="selected" {{/if}}>ABOUT</button>
+            </div>
+            {{#if session.token}}
+            <div class="footeritem">
+                <button onclick="window.location.href='/logout'" title="LOGOUT">LOGOUT</button>
+            </div>
+            {{/if}}
+            <a href="/" style="margin-left: auto;">
+                <img src="/public/images/logo_footer.png" alt="Footer Logo">
+            </a>
+        </footer>
+    </div>
+    <script src="/public/javascripts/index-page.js"></script>
 </body>
+
 </html>
