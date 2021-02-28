@@ -47,6 +47,7 @@ class Tetris {
   playerReset(){
     this.player.gameOver = 0;
     this.player.dropInterval = this.player.DROP_SLOW;
+    this.speedSave = this.DROP_SLOW;
     this.player.time = 0;
     this.player.speed = 0;
     this.player.score = 0;

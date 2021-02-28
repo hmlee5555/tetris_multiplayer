@@ -3,6 +3,8 @@
 // const white = "#fff";
 const loginModal = document.querySelector('#login-modal');
 const sessionModal = document.querySelector('#session-modal');
+const aboutModal = document.querySelector('#about-modal');
+const howtoModal = document.querySelector('#howto-modal');
 
 document.querySelectorAll('.menu').forEach(item => {
     if (item.id === "quickmatch"){
@@ -24,6 +26,20 @@ document.querySelectorAll('.menu').forEach(item => {
         //CREATE/JOIN SESSION button
         item.addEventListener('click', () => {
             toggleModal(sessionModal);
+        });
+    }
+});
+
+document.querySelectorAll('.footeritem').forEach(item => {
+    if (item.id === "about"){
+        // ABOUT button
+        item.addEventListener('click', () => {
+            toggleModal(aboutModal);
+        });
+    }else if (item.id === "howto") {
+        // HOW TO button
+        item.addEventListener('click', () => {
+            toggleModal(howtoModal);
         });
     }
 });
