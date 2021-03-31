@@ -49,7 +49,7 @@
 
 ## Web 주소
 
-ec2-13-124-232-59.ap-northeast-2.compute.amazonaws.com
+http://ec2-13-124-232-59.ap-northeast-2.compute.amazonaws.com:3000
 
 ---
 
