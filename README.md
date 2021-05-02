@@ -32,6 +32,21 @@
 
 ## 게임 실행
 
+[게임 메인 화면]
+![main](capture_image/1.PNG)
+[로그인 화면]
+![main](capture_image/2.PNG)
+[계정 등록 화면]
+![main](capture_image/3.PNG)
+[대결 상대 접속을 기다리는 화면]
+![main](capture_image/4.PNG)
+[솔로 플레이 화면]
+![main](capture_image/5.PNG)
+[솔로 플레이 화면]
+![main](capture_image/6.PNG)
+[솔로 플레이 도중 game end 화면]
+![main](capture_image/7.PNG)
+
 이미지 넣기.  
 게임 메인 화면  
 게임 실행 상황- 싱글, 멀티 선택  
