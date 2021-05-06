@@ -71,5 +71,5 @@ http://ec2-13-124-232-59.ap-northeast-2.compute.amazonaws.com:3000
 ## 개발자
 
 이호민  
-이대곤
+이대곤   
 심규철
