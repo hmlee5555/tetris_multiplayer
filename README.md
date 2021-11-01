@@ -62,12 +62,6 @@
 
 ---
 
-## Web 주소
-
-http://ec2-13-124-232-59.ap-northeast-2.compute.amazonaws.com:3000
-
----
-
 ## 개발자
 
 이호민  
